@@ -1,5 +1,12 @@
 :highlight Pmenu ctermbg=gray guibg=gray
 
-call plug#begin('~/.vim/plugged')
-	Plug 'Valloric/YouCompleteMe'
-call plug#end()
+if has('win32')
+	call plug#begin('~/vimfiles/plugged')
+		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	call plug#end()
+else
+	call plug#begin('~/.vim/plugged')
+		Plug 'Valloric/YouCompleteMe'
+	call plug#end()
+endif
+
