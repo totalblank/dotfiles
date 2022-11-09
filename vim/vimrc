@@ -9,6 +9,3 @@ else
 		Plug 'Valloric/YouCompleteMe'
 	call plug#end()
 endif
-
-" Source the cocscript.vim
-source ~/dotfiles/vim/cocscript.vim
