@@ -1,10 +1,14 @@
 if has('win32')
 	call plug#begin('~/vimfiles/plugged')
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+		Plug 'preservim/nerdtree'
+		Plug 'tpope/vim-fugitive'
 	call plug#end()
 else
 	call plug#begin('~/.vim/plugged')
 		Plug 'Valloric/YouCompleteMe'
+		Plug 'preservim/nerdtree'
+		Plug 'tpope/vim-fugitive'
 	call plug#end()
 endif
 
@@ -17,3 +21,8 @@ if has('gui')
 else
 	colorscheme desert
 endif
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
