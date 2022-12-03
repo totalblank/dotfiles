@@ -1,4 +1,7 @@
+" ------------User Plug specific-----------
 cd ~
+set textwidth=80
+
 " ------------Vim Plug specific------------
 if has('win32')
 	call plug#begin('~/vimfiles/plugged')
@@ -33,22 +36,18 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " ------------VimTeX specific--------------
 "let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 "let g:vimtex_view_general_options = '-output-directory=~/LaTeX_Backup'
-"let g:vimtex_compiler_latexmk = { 
-"        \ 'executable' : 'xelatex',
-"        \ 'options' : [ 
-"        \   '-xelatex',
-"        \   '-file-line-error',
-"        \   '-synctex=1',
-"        \   '-interaction=nonstopmode',
-"        \ ],
-"        \}
-let g:vimtex_quickfix_ignore_filters = [
-      \ 'Underfull',
-      \ 'Overfull',
-      \ 'Package bibentry Warning',
-      \ 'I found no \citation commands',
-      \ ' I found no \bibdata command'
-      \]
+let g:vimtex_quickfix_enabled = 0
+
+let g:Tex_IgnoredWarnings = 
+    \'Underfull'."\n".
+    \'Overfull'."\n".
+    \'specifier changed to'."\n".
+    \'You have requested'."\n".
+    \'Missing number, treated as zero.'."\n".
+    \'There were undefined references'."\n".
+    \'Citation %.%# undefined'."\n".
+    \'Double space found.'."\n"
+let g:Tex_IgnoreLevel = 8
 
 " ------------Coc.nvim specific------------
 " May need for vim (not neovim) since coc.nvim calculate byte offset by count

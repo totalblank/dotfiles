@@ -1,3 +1,13 @@
+global !p
+def isMath():
+    return int(vim.eval('vimtex#syntax#in_mathzone()')) > 0
+endglobal
+
+context "isMath()"
+snippet pow "" iA
+^{$1}$0
+endsnippet
+
 snippet beg "begin{} / end{}" bA
 \begin{$1}
 	$0
@@ -19,38 +29,47 @@ $1
 .\] $0
 endsnippet
 
+context "isMath()"
 snippet '([A-Za-z])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
+context "isMath()"
 snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 
+context "isMath()"
 snippet sr "^2" iA
 ^2
 endsnippet
 
+context "isMath()"
 snippet cb "^3" iA
 ^3
 endsnippet
 
+context "isMath()"
 snippet compl "complement" iA
 ^{c}
 endsnippet
 
+context "isMath()"
 snippet td "superscript" iA
 ^{$1}$0
 endsnippet
 
+context "isMath()"
 snippet // "Fraction" iA
 \\frac{$1}{$2}$0
 endsnippet
 
+context "isMath()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
+context "isMath()"
 priority 1000
 snippet '^.*\)/' "() Fraction" wrA
 `!p
@@ -66,10 +85,12 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 `{$1}$0
 endsnippet
 
+context "isMath()"
 snippet sympy "sympy block " w
 sympy $1 sympy$0
 endsnippet
 
+context "isMath()"
 priority 10000
 snippet 'sympy(.*)sympy' "evaluate sympy" wr
 `!p

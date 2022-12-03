@@ -1,0 +1,14 @@
+\newenvironment{boxed}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+%
+
+\newenvironment{loggentry}[2]% date, heading
+{\noindent\textbf{\begin{LARGE}#2\end{LARGE}}\marginpar{#1}\\}{\vspace{0.5cm}}
