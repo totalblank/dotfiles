@@ -1,6 +1,12 @@
 " ------------User Plug specific-----------
 cd ~
 set textwidth=80
+set nocompatible
+set backspace=indent,eol,start
+
+if empty(v:servername) && exists('*remote_startserver')
+	call remote_startserver('VIM')
+endif
 
 " ------------Vim Plug specific------------
 if has('win32')
@@ -37,6 +43,21 @@ nnoremap <C-f> :NERDTreeFind<CR>
 "let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 "let g:vimtex_view_general_options = '-output-directory=~/LaTeX_Backup'
 let g:vimtex_quickfix_enabled = 0
+
+"let g:vimtex_compiler_latexmk = {
+"\ 'build_dir' : '',
+"\ 'callback' : 1,
+"\ 'continuous' : 1,
+"\ 'executable' : 'latexmk',
+"\ 'hooks' : [],
+"\ 'options' : [
+"\   '-verbose',
+"\   '-file-line-error',
+"\   '-synctex=1',
+"\   '-interaction=nonstopmode',
+"\   '-auxdir=~/temp',
+"\ ],
+"\}
 
 let g:Tex_IgnoredWarnings = 
     \'Underfull'."\n".
