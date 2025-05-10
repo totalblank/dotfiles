@@ -29,8 +29,8 @@ keystate_numlock = enable
 "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
    XF86AudioMicMute
 
-"brightnessctl set 10%-"
+"brightnessctl set 5%-"
   XF86MonBrightnessDown
 
-"brightnessctl set +10%"
+"brightnessctl set +5%"
   XF86MonBrightnessUp

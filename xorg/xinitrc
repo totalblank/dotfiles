@@ -2,4 +2,8 @@
 
 xbindkeys &
 picom &
+while true; do
+  xsetroot -name "$(date)"
+  sleep 1s # Update time every minute
+done &
 exec dwm
