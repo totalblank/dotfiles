@@ -1,0 +1,1 @@
+export PATH="~/dotfiles/bash_scripts/scripts:$PATH"

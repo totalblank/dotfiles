@@ -34,3 +34,6 @@ keystate_numlock = enable
 
 "brightnessctl set +5%"
   XF86MonBrightnessUp
+
+"maim -s | xclip -selection clipboard -t image/png -i"
+  Print
