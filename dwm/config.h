@@ -27,8 +27,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
+	{ "mpv",      NULL,       NULL,       0,            1,           -1 },
+	/*{ "firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
 };
 
 /* layout(s) */
@@ -62,7 +63,7 @@ static const char *termcmd[]  = { "kitty", NULL };
 
 /* custom commands variable list */
 static const char bookmarks[] = "xdotool type $(grep -v '^#' ~/dotfiles/bookmarks | dmenu -fn JetBrainMonoNerdFontMono:size=14 -b -i -l 50 | cut -d' ' -f1)";
-static const char add_bookmark[] = "$HOME/dotfiles/bash_scripts/bookmarkthis";
+static const char add_bookmark[] = "echo $(xclip -o) >> $HOME/dotfiles/bookmarks";
 
 static const Key keys[] = {
   /* modifier          key        	function        argument */
