@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+bookmark="$(xclip -o)"
+file="$HOME/dotfiles/bookmarks"
+echo "$bookmark" >>"$file"
