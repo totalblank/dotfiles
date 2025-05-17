@@ -1,1 +1,3 @@
-My Arch Linux dotfiles.
+# My Arch Linux dotfiles.
+
+# Requirements
