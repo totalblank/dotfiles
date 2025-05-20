@@ -2,5 +2,5 @@ return {
   -- Ensure C/C++ debugger is installed
   "williamboman/mason.nvim",
   optional = true,
-  opts = { ensure_installed = { "codelldb", "latex", "c", "cpp" } },
+  opts = { ensure_installed = { "codelldb" } },
 }
