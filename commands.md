@@ -9,4 +9,4 @@ ffmpeg -f x11grab -video_size $(xdpyinfo | grep 'dimensions:' | awk '{print $2;}
 ```
 
 ## Record screen with audio (Windows)
-```
+
