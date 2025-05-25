@@ -1,6 +1,6 @@
 # ffmpeg
 
-## Record screen with audio (Linux)
+## Record screen with input audio (Linux)
 
 Requires `xorg-xdpyinfo` to be installed.
 

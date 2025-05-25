@@ -12,3 +12,5 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="~/dotfiles/bash_scripts/scripts:$PATH"
 
 set -o vi
+
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
