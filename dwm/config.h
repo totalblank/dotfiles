@@ -30,7 +30,8 @@ static const Rule rules[] = {
 	/* { "Gimp",     NULL,       NULL,       0,            1,           -1 }, */
 	{ "mpv",      	NULL,       NULL,       0,            1,           -1 },
 	{ "Zathura",    NULL,       NULL,       0,            1,           -1 },
-	{ "Inkscape",    NULL,       NULL,       0,            1,           -1 },
+	{ "Inkscape",   NULL,       NULL,       0,            1,           -1 },
+	{ "imv",    	NULL,       NULL,       0,            1,           -1 },
 	/*{ "firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
 };
 
