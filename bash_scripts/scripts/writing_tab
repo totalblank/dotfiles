@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cd ~/dotfiles/10moons-driver-vin1060plus/
+source ~/dotfiles/10moons-driver-vin1060plus/venv/bin/activate
+sudo ~/dotfiles/10moons-driver-vin1060plus/venv/bin/python ~/dotfiles/10moons-driver-vin1060plus/driver.py -d
