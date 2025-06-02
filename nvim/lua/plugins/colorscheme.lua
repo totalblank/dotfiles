@@ -1,5 +1,5 @@
 return {
-  "craftzdog/solarized-osaka.nvim",
+  "rebelot/kanagawa.nvim",
   lazy = true,
   priority = 1000,
   opts = function()

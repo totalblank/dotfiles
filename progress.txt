@@ -1,15 +1,18 @@
 June 2025
 
 GRE
-10.75h
+14.5h
 
 CP
 0.75h
 
 Django
-3.5h
+6.5h (ORM 5th completed)
 
 C
 0.75h
+
+Data Science
+0.5h
 
 July 2025
