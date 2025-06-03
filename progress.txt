@@ -7,10 +7,10 @@ CP
 0.75h
 
 Django
-6.5h (ORM 5th completed)
+8h (ORM 6th completed)
 
-C
-0.75h
+DSA
+1.75h
 
 Data Science
 0.5h
