@@ -19,7 +19,6 @@ return {
       },
     },
   },
-
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
@@ -80,7 +79,7 @@ return {
           local builtin = require("telescope.builtin")
           builtin.find_files({
             no_ignore = false,
-            hidden = true,
+            hidden = false,
           })
         end,
         desc = "Lists files in your current working directory, respects .gitignore",

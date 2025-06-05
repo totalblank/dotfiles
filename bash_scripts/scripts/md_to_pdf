@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+fbname=$(basename "$1" .md)
+
+echo -e "Compiling $fbname.md to $fbname.pdf\n"
+echo -e "Executing: \n"
+echo -e "pandoc -i "$fbname.md" -o "$fbname.html""
+echo -e "pandoc -i "$fbname.html" -o "$fbname.pdf""
+
+pandoc -i "$fbname.md" -o "$fbname.html"
+pandoc -i "$fbname.html" -o "$fbname.pdf"
+
+echo -e "\nDeleting $fbname.html...\n"
+rm "$fbname.html"

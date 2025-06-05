@@ -23,16 +23,16 @@ return {
   --- filename
   {
     "b0o/incline.nvim",
-    dependencies = { "craftzdog/solarized-osaka.nvim" },
+    dependencies = { "rebelot/kanagawa.nvim" },
     event = "BufReadPre",
     priority = 1200,
     config = function()
-      local colors = require("solarized-osaka.colors").setup()
+      local colors = require("kanagawa.colors").setup()
       require("incline").setup({
         highlight = {
           groups = {
-            InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
-            InclineNormalNC = { guibg = colors.violet500, guifg = colors.base03 },
+            InclineNormal = { guibg = colors.palette.dragonAsh, guifg = colors.palette.autumnRed },
+            InclineNormalNC = { guibg = colors.palette.dragonBlack3, guifg = colors.palette.dragonRed },
           },
         },
         window = { margin = { vertical = 0, horizontal = 1 } },

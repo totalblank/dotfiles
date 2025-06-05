@@ -1,11 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 xbindkeys &
 picom &
+
 while true; do
   xsetroot -name "$(date +'%a, %b %d - %Y | %l:%M %p')"
-  sleep 1m # Update time every minute
+  sleep 15s
 done &
+
 xrandr
 xrdb -merge ~/.Xresources
 exec dwm
