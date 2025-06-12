@@ -1,1 +1,4 @@
 set font "JetBrains Mono Nerd Font Mono 14"
+set window-width 1200
+set window-height 700
+set adjust-open "best-fit"

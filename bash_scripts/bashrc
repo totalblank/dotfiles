@@ -4,6 +4,7 @@ export EDITOR=nvim
 alias vim="nvim"
 alias battery="upower -i $(upower -e | grep '/battery') | grep --color=never -E percentage|xargs|cut -d' ' -f2|sed s/%//"
 alias bookmark="$EDITOR ~/dotfiles/bookmarks"
+alias zathura="~/dotfiles/bash_scripts/scripts/zathura.sh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm

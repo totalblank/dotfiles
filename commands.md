@@ -10,3 +10,17 @@ ffmpeg -f x11grab -video_size $(xdpyinfo | grep 'dimensions:' | awk '{print $2;}
 
 ## Record screen with audio (Windows)
 
+
+## Connect to wifi
+
+```Bash
+nmcli dev wifi list
+nmcli dev wifi connect <SSID> password <password>
+nmcli connection delete "NameOfWifi"
+```
+
+## Mirrors in Arch Linux
+
+If, for some reason, pacman cannot download packages, go to `https://archlinux.org/mirrorlist/` and generate a mirrorlist
+for your country. Copy the generated text into `/etc/pacman.d/mirrorlist`, save and exit. Then run `sudo pacman -Syu`.
+It should be solved.
