@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+
+\usepackage{xfp}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\pgfplotsset{width=12cm,compat=1.9}
+
+\title{Progress}
+\author{Aheer Srabon}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{June 2025}
+
+\input{months/june}
+
+\begin{itemize}
+\itemsep0em
+  \item GRE           - \juneGRE h
+  \item CP \& DSA     - \juneDSACP h
+  \item Django        - \juneDJANGO h
+  \item Data Science  - \juneDS h
+  \item Research      - \juneRESEARCH h
+\end{itemize}
+
+\noindent Total is \juneTOTAL h.
+
+\vspace{0.5cm}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        symbolic x coords={GRE, CP and DSA, Django, Data Science, Research},
+        xtick=data
+      ]
+        \addplot[ybar] coordinates {
+            (GRE,           \juneGRE)
+            (CP and DSA,     \juneDSACP)
+            (Django,        \juneDJANGO)
+            (Data Science,  \juneDS)
+            (Research,      \juneRESEARCH)
+        };
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

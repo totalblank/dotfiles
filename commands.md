@@ -21,6 +21,10 @@ nmcli connection delete "NameOfWifi"
 
 ## Mirrors in Arch Linux
 
-If, for some reason, pacman cannot download packages, go to `https://archlinux.org/mirrorlist/` and generate a mirrorlist
+If, for some reason, `pacman` cannot download packages, go to `https://archlinux.org/mirrorlist/` and generate a mirrorlist
 for your country. Copy the generated text into `/etc/pacman.d/mirrorlist`, save and exit. Then run `sudo pacman -Syu`.
 It should be solved.
+
+# Pandoc
+
+- [Header Attributes](https://pandoc.org/MANUAL.html#extension-header_attributes)
