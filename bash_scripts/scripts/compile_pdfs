@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# LaTeX files
+latexmk -output-directory=/home/srabon/Documents/pdfs/ -pdf -c /home/srabon/dotfiles/progress/progress.tex
+latexmk -output-directory=/home/srabon/Documents/pdfs/ -pdf -c /home/srabon/Zettelkasten/6\ -\ Main\ Notes/Data\ Science/statistics.tex
+
+# Django ORM Notes
+pandoc -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/Django\ ORM\ Deep\ Dive.md -o /home/srabon/Documents/pdfs/Django\ ORM\ Deep\ Dive.pdf
+
+# GRE
+pandoc -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/GRE/TC\ \&\ SE.md -o /home/srabon/Documents/pdfs/gre/TC\ \&\ SE.html
+pandoc -i /home/srabon/Documents/pdfs/gre/TC\ \&\ SE.html -o /home/srabon/Documents/pdfs/gre/TC\ \&\ SE.pdf
+pandoc -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/GRE/Vocab.md -o /home/srabon/Documents/pdfs/gre/Vocab.html
+pandoc -i /home/srabon/Documents/pdfs/gre/Vocab.html -o /home/srabon/Documents/pdfs/gre/Vocab.pdf
+pandoc -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/GRE/Quant.md -o /home/srabon/Documents/pdfs/gre/Quant.pdf --katex
+rm /home/srabon/Documents/pdfs/*.html
+rm /home/srabon/Documents/pdfs/gre/*.html

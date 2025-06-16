@@ -15,34 +15,36 @@
 
 \section*{June 2025}
 
-\input{months/june}
+\input{~/dotfiles/progress/months/june}
 
 \begin{itemize}
 \itemsep0em
-  \item GRE           - \juneGRE h
-  \item CP \& DSA     - \juneDSACP h
-  \item Django        - \juneDJANGO h
-  \item Data Science  - \juneDS h
-  \item Research      - \juneRESEARCH h
+  \item GRE           - \juneGRE hours
+  \item CP \& DSA     - \juneDSACP hours
+  \item Python        - \junePYTHON hours
+  \item Data Science  - \juneDS hours
+  \item Research      - \juneRESEARCH hours
 \end{itemize}
 
-\noindent Total is \juneTOTAL h.
+\noindent Total is \juneTOTAL{} hours.
 
 \vspace{0.5cm}
 
 \begin{tikzpicture}
     \begin{axis}[
-        symbolic x coords={GRE, CP and DSA, Django, Data Science, Research},
+        symbolic x coords={GRE, CP and DSA, Python, Data Science, Research},
         xtick=data
       ]
         \addplot[ybar] coordinates {
             (GRE,           \juneGRE)
             (CP and DSA,     \juneDSACP)
-            (Django,        \juneDJANGO)
+            (Python,        \junePYTHON)
             (Data Science,  \juneDS)
             (Research,      \juneRESEARCH)
         };
     \end{axis}
 \end{tikzpicture}
+
+\noindent I will not lose myself to myself. I prevail over anything and everything.
 
 \end{document}
