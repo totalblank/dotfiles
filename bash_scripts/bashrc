@@ -2,6 +2,7 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 alias vim="nvim"
+alias emacs="emacs -nw"
 alias battery="upower -i $(upower -e | grep '/battery') | grep --color=never -E percentage|xargs|cut -d' ' -f2|sed s/%//"
 alias bookmark="$EDITOR ~/dotfiles/bookmarks"
 alias zathura="~/dotfiles/bash_scripts/scripts/zathura.sh"
