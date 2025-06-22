@@ -4,6 +4,8 @@
 latexmk -output-directory=/home/srabon/Documents/pdfs/ -pdf /home/srabon/dotfiles/progress/progress.tex
 latexmk -output-directory=/home/srabon/Documents/pdfs/ -pdf /home/srabon/Zettelkasten/6\ -\ Main\ Notes/Data\ Science/statistics.tex
 
+latexmk -output-directory=/home/srabon/Documents/pdfs/gre/ -pdf /home/srabon/Zettelkasten/6\ -\ Main\ Notes/GRE/Quant.tex
+
 # Django ORM Notes
 pandoc -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/Django\ ORM\ Deep\ Dive.md -o /home/srabon/Documents/pdfs/Django\ ORM\ Deep\ Dive.pdf
 
@@ -13,8 +15,6 @@ pandoc -i /home/srabon/Documents/pdfs/gre/TC\ \&\ SE.html -o /home/srabon/Docume
 
 pandoc -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/GRE/Vocab.md -o /home/srabon/Documents/pdfs/gre/Vocab.html
 pandoc -i /home/srabon/Documents/pdfs/gre/Vocab.html -o /home/srabon/Documents/pdfs/gre/Vocab.pdf
-
-pandoc -s -i /home/srabon/Zettelkasten/6\ -\ Main\ Notes/GRE/Quant.md -o /home/srabon/Documents/pdfs/gre/Quant.pdf --katex
 
 # cleanup
 rm /home/srabon/Documents/pdfs/*.aux

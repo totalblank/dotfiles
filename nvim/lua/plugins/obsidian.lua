@@ -22,5 +22,8 @@ return {
         path = "~/Zettelkasten/",
       },
     },
+    daily_notes = {
+      folder = "dailies",
+    },
   },
 }
