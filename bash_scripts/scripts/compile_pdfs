@@ -21,7 +21,11 @@ rm /home/srabon/Documents/pdfs/*.aux
 rm /home/srabon/Documents/pdfs/*.fdb_latexmk
 rm /home/srabon/Documents/pdfs/*.fls
 rm /home/srabon/Documents/pdfs/*.log
-rm /home/srabon/Documents/pdfs/*.
+
+rm /home/srabon/Documents/pdfs/gre/*.aux
+rm /home/srabon/Documents/pdfs/gre/*.fdb_latexmk
+rm /home/srabon/Documents/pdfs/gre/*.fls
+rm /home/srabon/Documents/pdfs/gre/*.log
 
 rm /home/srabon/Documents/pdfs/*.html
 rm /home/srabon/Documents/pdfs/gre/*.html
