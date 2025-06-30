@@ -72,4 +72,48 @@ on and my drive to snap out of it.
     \end{axis}
 \end{tikzpicture}
 
+\section*{July 2025}
+\input{~/dotfiles/progress/months/july}
+
+\noindent Last month, I did ok. While ok is ok, it is unfortunately not good enough. I decided to take
+my GRE exam on August 2nd. So I have 31 days this month. I must work for 6 hours a day.
+
+\subsection*{Targets}
+\noindent This month, I am going to focus on only four things,
+\begin{itemize}
+  \item GRE
+  \item Data Science and Research
+  \item Investing
+  \item Fitness
+\end{itemize}
+
+\noindent I am going to obliterate these four. On average, I wish to study 6 hours a day, at least 3 to 4 of
+which should be allocated for GRE. I MUST get 340 on the GRE. It is hard, and that is precisely why I need it.
+Also, I wish to lower my body weight by at least 3 kg in this month.
+
+\subsection*{Completed so far}
+\begin{itemize}
+\itemsep0em
+  \item GRE                       - \julyGRE hours
+  \item Data Science \& Research  - \julyDSandRESEARCH hours
+  \item Investing                 - \julyINVEST hours
+\end{itemize}
+
+\noindent Total: \julyTOTAL{} hours. Per day: \fpeval{\julyTOTAL / 1}.
+
+\vspace{0.5cm}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        symbolic x coords={GRE, Data Science \& Research, Investing},
+        xtick=data
+      ]
+        \addplot[ybar] coordinates {
+            (GRE,                       \julyGRE)
+            (Data Science \& Research,  \julyDSandRESEARCH)
+            (Investing,                 \julyINVEST)
+        };
+    \end{axis}
+\end{tikzpicture}
+
 \end{document}
