@@ -10,4 +10,5 @@ done &
 
 xrandr
 xrdb -merge ~/.Xresources
+feh --bg-scale ~/Documents/Picture/cyborg.jpg &
 exec dwm
