@@ -1,32 +1,10 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "astro",
-        "cmake",
-        "cpp",
-        "css",
-        "fish",
-        "gitignore",
-        "graphql",
-        "http",
-        "php",
-        "scss",
-        "sql",
-        "svelte",
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-
-      -- MDX
-      vim.filetype.add({
-        extension = {
-          mdx = "mdx",
-        },
-      })
-      vim.treesitter.language.register("markdown", "mdx")
-    end,
-  },
+  "nvim-treesitter/nvim-treesitter",
+  run = ":TSUpdate",
+  config = function()
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = { "markdown", "markdown_inline", "r", "rnoweb", "yaml", "latex", "csv" },
+      highlight = { enable = true },
+    })
+  end,
 }
