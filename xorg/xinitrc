@@ -3,12 +3,13 @@
 xbindkeys &
 picom &
 
-while true; do
-  xsetroot -name "$(date +'%a, %b %d - %Y | %l:%M %p')"
-  sleep 15s
-done &
+## while true; do
+##   xsetroot -name "$(date +'%a, %b %d - %Y | %l:%M %p')"
+##   sleep 15s
+## done &
 
 xrandr
 xrdb -merge ~/.Xresources
 feh --bg-scale ~/dotfiles/wallpaper/cyborg.jpg &
+slstatus &
 exec dwm
