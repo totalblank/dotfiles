@@ -11,5 +11,6 @@ picom &
 xrandr
 xrdb -merge ~/.Xresources
 feh --bg-scale ~/dotfiles/wallpaper/cyborg.jpg &
+dunst &
 slstatus &
 exec dwm
