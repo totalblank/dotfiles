@@ -1,0 +1,5 @@
+#
+# ~/.bash_profile
+#
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+[[ -f ~/.bashrc ]] && . ~/.bashrc

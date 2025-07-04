@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 echo -e "Performing the following action, \n"
-echo -e "z $1\ngit add .\ngit commit -m '$2'\ngit push\n"
+echo -e "git add .\ngit commit -m '$2'\ngit push\n"
 
 git add .
 git commit -m "$1"
