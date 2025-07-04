@@ -2,4 +2,4 @@
 
 cd ~/dotfiles/10moons-driver-vin1060plus/
 source ~/dotfiles/10moons-driver-vin1060plus/venv/bin/activate
-echo 185514 | sudo -S ~/dotfiles/10moons-driver-vin1060plus/venv/bin/python ~/dotfiles/10moons-driver-vin1060plus/driver.py -d
+echo "$1" | sudo -S ~/dotfiles/10moons-driver-vin1060plus/venv/bin/python ~/dotfiles/10moons-driver-vin1060plus/driver.py -d
