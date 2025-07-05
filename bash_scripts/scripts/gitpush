@@ -1,8 +1,10 @@
 #!/usr/bin/bash
 
+DATE_TIME_NOW=$(date +"%I:%M %p, %A, %e %b %Y")
+
 echo -e "Performing the following action, \n"
-echo -e "git add .\ngit commit -m '$2'\ngit push\n"
+echo -e "git add .\ngit commit -m "$1 -- at $DATE_TIME_NOW"\ngit push\n"
 
 git add .
-git commit -m "$1"
+git commit -m "$1 -- at $DATE_TIME_NOW"
 git push

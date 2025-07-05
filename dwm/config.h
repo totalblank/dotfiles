@@ -34,6 +34,7 @@ static const Rule rules[] = {
 	{ "Zathura",    NULL,       NULL,       0,            1,           -1 },
 	{ "Inkscape",   NULL,       NULL,       0,            1,           -1 },
 	{ "imv",    	NULL,       NULL,       0,            1,           -1 },
+	{ "feh",    	NULL,       NULL,       0,            1,           -1 },
 	{ "R_x11",    	NULL,       NULL,       0,            1,           -1 },
 	/*{ "firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
 };
