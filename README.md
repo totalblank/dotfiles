@@ -13,5 +13,4 @@ some corner of Reddit.
 
 # Usage
 
-Clone the repo in `$HOME` and run the `init.sh` shell script with the `sudo`
-password as the first argument.
+Clone the repo in `$HOME` and run the `init.sh` shell script.
