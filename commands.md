@@ -28,3 +28,7 @@ It should be solved.
 # Pandoc
 
 - [Header Attributes](https://pandoc.org/MANUAL.html#extension-header_attributes)
+
+# Misc Linux
+
+If you want to execute something on login, put it in `.bash_profile`.
