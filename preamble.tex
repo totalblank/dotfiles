@@ -4,7 +4,10 @@
 \usepackage{enumitem}
 \usepackage{pgfplots}
 \usepackage{tikz}
+\usepackage{hyperref}
+
 \usetikzlibrary{arrows}
+\pgfplotsset{compat=1.18}
 
 \newlist{todolist}{itemize}{2}
 \setlist[todolist]{label=$\square$}
@@ -13,5 +16,6 @@
 \newcommand{\xmark}{\ding{55}}%
 \newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
 \hspace{-2.5pt}}
+
 \newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
 

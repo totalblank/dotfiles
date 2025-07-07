@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-cd ~/dotfiles/10moons-driver-vin1060plus/
-source ~/dotfiles/10moons-driver-vin1060plus/venv/bin/activate
-echo "$1" | sudo -S ~/dotfiles/10moons-driver-vin1060plus/venv/bin/python ~/dotfiles/10moons-driver-vin1060plus/driver.py -d
+cd $HOME/dotfiles/10moons-driver-vin1060plus/
+source $HOME/dotfiles/10moons-driver-vin1060plus/venv/bin/activate
+echo "$1" | sudo -S $HOME/dotfiles/10moons-driver-vin1060plus/venv/bin/python $HOME/dotfiles/10moons-driver-vin1060plus/driver.py -d
