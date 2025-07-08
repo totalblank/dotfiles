@@ -7,7 +7,7 @@ SEARCH_DIRS=("$HOME/Documents" "$HOME/Zettelkasten")
 dir_list=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 6 -type d ! -name ".*")
 
 # Use dmenu to select one
-selected_dir=$(echo "$dir_list" | dmenu -p "Select directory:")
+selected_dir=$(echo "$dir_list" | dmenu -i -p "Select directory:")
 
 # Exit if user cancels or no selection
 if [ -z "$selected_dir" ]; then
@@ -16,6 +16,8 @@ if [ -z "$selected_dir" ]; then
 fi
 
 echo "Selected directory: $selected_dir"
+echo "cding into $selected_dir"
+cd "$selected_dir"
 
 # Compile all .tex files in the selected directory
 compiled=false
