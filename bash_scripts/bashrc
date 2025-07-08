@@ -16,18 +16,75 @@ set -o vi
 
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
-# Detecting and mounting android device
-cdmtp() {
-  gio mount \
-    $(gio mount -li |
-      grep -o 'mtp://[^ ]*' |
-      head -n 1)
+mtpdev() {
+  # Get all connected MTP devices (mounted and unmounted)
+  mapfile -t all_mtp_uris < <(gio mount -li | grep -o 'mtp://[^ ]*')
 
-  mount_point=$(gio mount -l |
-    grep -o 'mtp://[^ ]*' |
-    head -n 1 |
-    xargs -I{} gio info {} |
-    sed -n 's/^local path: //p')
-  echo "Changing directory to: $mount_point"
-  cd "$mount_point"
+  if [ ${#all_mtp_uris[@]} -eq 0 ]; then
+    echo "No MTP devices connected."
+    return 1
+  fi
+
+  echo "Connected MTP devices:"
+  for i in "${!all_mtp_uris[@]}"; do
+    uri="${all_mtp_uris[$i]}"
+    # Check if mounted
+    mounted=$(gio mount -l | grep -F "$uri")
+    status="[unmounted]"
+    [ -n "$mounted" ] && status="[mounted]"
+    echo "[$i] $uri $status"
+  done
+
+  read -p "Select a device number: " index
+  if ! [[ "$index" =~ ^[0-9]+$ ]] || [ "$index" -ge "${#all_mtp_uris[@]}" ]; then
+    echo "Invalid selection."
+    return 1
+  fi
+
+  selected_uri="${all_mtp_uris[$index]}"
+  mounted=$(gio mount -l | grep -F "$selected_uri")
+
+  if [ -z "$mounted" ]; then
+    echo "Device not mounted. Mounting now..."
+    gio mount "$selected_uri" || {
+      echo "Failed to mount device."
+      return 1
+    }
+  fi
+
+  mount_point=$(gio info "$selected_uri" | sed -n 's/^local path: //p')
+
+  if [ -z "$mount_point" ]; then
+    echo "Failed to get mount point."
+    return 1
+  fi
+
+  echo "Device mounted at: $mount_point"
+
+  echo "Choose an action:"
+  select action in "cd into device" "unmount device" "cancel"; do
+    case $action in
+    "cd into device")
+      if [ -d "$mount_point" ]; then
+        echo "Changing directory to: $mount_point"
+        cd "$mount_point"
+      else
+        echo "Mount point directory does not exist."
+      fi
+      break
+      ;;
+    "unmount device")
+      echo "Unmounting $selected_uri ..."
+      gio mount -u "$selected_uri" && echo "Device unmounted."
+      break
+      ;;
+    "cancel")
+      echo "Cancelled."
+      break
+      ;;
+    *)
+      echo "Invalid choice."
+      ;;
+    esac
+  done
 }
