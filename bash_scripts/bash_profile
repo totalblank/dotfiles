@@ -3,4 +3,7 @@
 #
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-setfont ter-132n
+# Only set font if running on a real Linux console
+if [ -z "$TMUX" ] && [ "$(tty)" = "/dev/tty1" ]; then
+  setfont ter-132n
+fi
