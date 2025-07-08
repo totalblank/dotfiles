@@ -28,6 +28,25 @@ return {
           -- Takes precedence over `default_method`
           never_run = { "yaml" }, -- filetypes which are never sent to a code runner
         },
+        keymap = {
+          preview = "<leader>qp",
+        },
+
+        vim.keymap.set("n", "<leader>qp", function()
+          local file = vim.fn.expand("%:p") -- full path
+          vim.cmd('belowright split | terminal quarto preview "' .. file .. '"')
+        end, { desc = "Quarto: Preview current file in terminal" }),
+
+        vim.keymap.set("n", "<leader>rc", function()
+          local lines = {
+            "```{r}",
+            "",
+            "```",
+          }
+          vim.api.nvim_put(lines, "l", true, true)
+          -- Move cursor up to the middle of the chunk
+          vim.cmd("normal! k")
+        end, { desc = "Insert R code chunk" }),
       })
     end,
   },
