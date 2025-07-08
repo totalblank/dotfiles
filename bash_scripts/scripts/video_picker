@@ -1,0 +1,24 @@
+#!/bin/bash
+
+VIDEO_BASE="$HOME/Videos"
+VIDEO_EXTENSIONS="mp4 mkv avi webm mov flv"
+
+# Pick directory
+dir=$(find "$VIDEO_BASE" -mindepth 1 -maxdepth 5 -type d ! -name ".*" | sort | dmenu -i -l 20 -p "Choose a folder:")
+
+[ -z "$dir" ] && echo "No folder selected." && exit 1
+
+# Find files and filter with grep for extensions (case-insensitive)
+video_files=$(find "$dir" -maxdepth 1 -type f ! -name ".*" |
+  grep -iE "\.($(echo $VIDEO_EXTENSIONS | sed 's/ /|/g'))$" | sort)
+
+[ -z "$video_files" ] && echo "No videos found in $dir." && exit 1
+
+# Pick a video
+selected=$(echo "$video_files" | dmenu -i -l 20 -p "Choose a video:")
+
+[ -z "$selected" ] && echo "No video selected." && exit 1
+
+# Play it
+echo "Playing: $selected"
+mpv "$selected" &

@@ -32,3 +32,7 @@ It should be solved.
 # Misc Linux
 
 If you want to execute something on login, put it in `.bash_profile`.
+
+## `suckless`
+
+All the changes that is made in `config.def.h`, must also be made in `config.h`.
