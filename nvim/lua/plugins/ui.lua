@@ -1,7 +1,20 @@
 return {
   {
     "folke/noice.nvim",
+    dependencies = {
+      {
+        "rcarriga/nvim-notify",
+        opts = {
+          timeout = 8000, -- ← This controls the timeout (in milliseconds)
+          stages = "fade", -- Optional: style of animation
+          max_width = nil, -- ← allow full message width
+          max_height = nil, -- ← allow full height if multi-line
+          render = "default",
+        },
+      },
+    },
     opts = function(_, opts)
+      -- Skip noisy messages
       table.insert(opts.routes, {
         filter = {
           event = "notify",
@@ -10,15 +23,37 @@ return {
         opts = { skip = true },
       })
 
+      -- Route to make ERROR-level messages persistent
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          level = vim.log.levels.ERROR,
+        },
+        opts = {
+          timeout = false, -- persist until dismissed
+        },
+      })
+
+      -- (Optional) Make WARN messages last longer
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          level = vim.log.levels.WARN,
+        },
+        opts = {
+          timeout = 10000,
+        },
+      })
+
+      -- Set Noice to use nvim-notify for notifications
+      opts.views = opts.views or {}
+      opts.views.notify = {
+        backend = "notify",
+      }
+
       opts.presets.lsp_doc_border = true
       opts.presets.inc_rename = true
     end,
-  },
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 10000,
-    },
   },
   --- filename
   {
