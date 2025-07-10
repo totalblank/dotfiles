@@ -36,3 +36,23 @@ If you want to execute something on login, put it in `.bash_profile`.
 ## `suckless`
 
 All the changes that is made in `config.def.h`, must also be made in `config.h`.
+
+## Dual boot
+
+When microsoft messes with the grub installation,
+
+1. List all available drives and partitions with `ls`
+2. Find the partition where grub is installed by repeatedly running `ls (hd1,gp1)`, until no option is left.
+3. When the right partition is found and it has `/boot/grub` in it,
+   ```Bash
+   set root=(hd1,gpt4)
+   set prefix=(hd1,gpt4)/boot/grub
+   insmod normal
+   normal
+   ```
+4. Grub should function normally now. Mount the `efi` directory to `/boot/efi` and run,
+   ```Bash
+   sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+   sudo grub-mkconfig -o /boot/grub/grub.cfg
+   ```
+5. (Optional but recommended) nuke the windows installation.

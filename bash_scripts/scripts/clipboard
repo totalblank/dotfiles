@@ -21,7 +21,7 @@ write() {
 }
 
 sel() {
-  selection=$(tac "$histfile" | dmenu -b -l 5 -i -p "Clipboard history:")
+  selection=$(tac "$histfile" | dmenu -i -l 10 -c -p "Clipboard history:")
   [ -n "$selection" ] && echo "$selection" | sed "s/$placeholder/\n/g" | xclip -i -selection clipboard && notification="Copied to clipboard!"
 }
 

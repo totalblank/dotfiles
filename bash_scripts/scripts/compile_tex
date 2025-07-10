@@ -24,7 +24,7 @@ compiled=false
 for texfile in "$selected_dir"/*.tex; do
   if [ -f "$texfile" ]; then
     echo "Compiling $texfile ..."
-    latexmk -pvc -pdf "$texfile"
+    latexmk -pdf "$texfile"
     compiled=true
   fi
 done
