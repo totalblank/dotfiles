@@ -54,8 +54,10 @@ return {
     "jpalardy/vim-slime",
     init = function()
       -- these two should be set before the plugin loads
+      -- vim.g.slime_target = "tmux"
+      -- vim.g.slime_no_mappings = true
+
       vim.g.slime_target = "tmux"
-      vim.g.slime_no_mappings = true
     end,
     config = function()
       vim.g.slime_input_pid = false

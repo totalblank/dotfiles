@@ -23,28 +23,6 @@ return {
         opts = { skip = true },
       })
 
-      -- Route to make ERROR-level messages persistent
-      table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          level = vim.log.levels.ERROR,
-        },
-        opts = {
-          timeout = false, -- persist until dismissed
-        },
-      })
-
-      -- (Optional) Make WARN messages last longer
-      table.insert(opts.routes, {
-        filter = {
-          event = "notify",
-          level = vim.log.levels.WARN,
-        },
-        opts = {
-          timeout = 10000,
-        },
-      })
-
       -- Set Noice to use nvim-notify for notifications
       opts.views = opts.views or {}
       opts.views.notify = {
