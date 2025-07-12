@@ -11,7 +11,7 @@ SEARCH_DIRS=("$HOME/Documents" "$HOME/Zettelkasten")
 dir_list=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 6 -type d ! -name ".*")
 
 # Use dmenu to select one
-selected_dir=$(echo "$dir_list" | dmenu -i -p "Select directory:")
+selected_dir=$(echo "$dir_list" | dmenu -x 660 -y 528 -z 600 -i -p "Select directory:")
 
 # Exit if user cancels or no selection
 if [ -z "$selected_dir" ]; then

@@ -17,7 +17,7 @@ fi
 [ -z "$pdf_files" ] && notify-send "No PDF files found in $DOCS_DIR" && exit 1
 
 # Show list in dmenu
-selected=$(echo "$pdf_files" | dmenu -i -l 20 -p "Select PDF:")
+selected=$(echo "$pdf_files" | dmenu -i -l 10 -p "Select PDF:")
 
 # Exit if nothing selected
 [ -z "$selected" ] && exit 0
