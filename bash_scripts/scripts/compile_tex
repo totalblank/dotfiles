@@ -1,5 +1,9 @@
 #!/bin/bash
 
+LOGFILE="$HOME/logs/compile_tex.log"
+# Start logging
+exec > >(tee -a "$LOGFILE") 2>&1
+
 # Limit search to these two parent directories
 SEARCH_DIRS=("$HOME/Documents" "$HOME/Zettelkasten")
 
@@ -37,5 +41,17 @@ fi
 # Clean auxiliary files
 echo "Cleaning auxiliary files with latexmk -c ..."
 latexmk -c -outdir="$selected_dir" "$selected_dir"/*.tex
+
+# Define source and destination directories
+SOURCE_DIR="$HOME/Zettelkasten/"
+DEST_DIR="$HOME/Documents/pdfs/"
+
+# Create destination directory if it doesn't exist
+mkdir -p "$DEST_DIR"
+
+# Find and move all PDFs from source and subdirectories
+find "$SOURCE_DIR" -type f -iname "*.pdf" -exec mv "{}" "$DEST_DIR" \;
+
+echo "All PDF files have been moved to $DEST_DIR"
 
 echo "Done."
