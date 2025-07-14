@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+#include <X11/keysym.h>
+
 /* appearance */
 static const unsigned int borderpx = 0; /* border pixel of windows */
 static const unsigned int snap = 8;     /* snap pixel */
@@ -83,6 +86,25 @@ static const char runscripts[] =
     "ls /home/srabon/dotfiles/bash_scripts/scripts | dmenu -i | bash > "
     "~/logs/runscripts.log";
 
+// Volume control
+static const char *volup[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
+                              "+5%", NULL};
+static const char *voldown[] = {"pactl", "set-sink-volume", "@DEFAULT_SINK@",
+                                "-5%", NULL};
+static const char *volmute[] = {"pactl", "set-sink-mute", "@DEFAULT_SINK@",
+                                "toggle", NULL};
+
+// Brightness control
+static const char *brup[] = {"brightnessctl", "set", "+5%", NULL};
+static const char *brdown[] = {"brightnessctl", "set", "5%-", NULL};
+
+// screenshot
+static const char *screenshot[] = {
+    "bash", "-c",
+    "path=\"$HOME/Pictures/Screenshots/$(date +%s).png\" && maim -s \"$path\" "
+    "&& xclip -selection clipboard -t image/png \"$path\"",
+    NULL};
+
 static const Key keys[] = {
     /* modifier          key        	function        argument */
     {MODKEY, XK_r, spawn, {.v = dmenucmd}},
@@ -111,6 +133,17 @@ static const Key keys[] = {
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+
+    /* volume and sound control */
+    {0, XF86XK_MonBrightnessUp, spawn, {.v = brup}},
+    {0, XF86XK_MonBrightnessDown, spawn, {.v = brdown}},
+    {0, XF86XK_AudioRaiseVolume, spawn, {.v = volup}},
+    {0, XF86XK_AudioLowerVolume, spawn, {.v = voldown}},
+    {0, XF86XK_AudioMute, spawn, {.v = volmute}},
+
+    /* screenshot */
+    {0, XK_Print, spawn, {.v = screenshot}},
+
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
             TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {0}},

@@ -1,34 +1,29 @@
 #!/bin/bash
 
+# Configurable timer in seconds (e.g., 15 minutes = 900 seconds)
+TIMEOUT=15
+
 LOGFILE="$HOME/logs/compile_tex.log"
-# Start logging
 exec > >(tee -a "$LOGFILE") 2>&1
 
-# Limit search to these two parent directories
 SEARCH_DIRS=("$HOME/Documents" "$HOME/Zettelkasten")
 
-# Gather non-hidden subdirectories from both
+# Get subdirectories
 dir_list=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 6 -type d ! -name ".*")
 
-# Use dmenu to select one
-selected_dir=$(echo "$dir_list" | dmenu -x 660 -y 528 -z 600 -i -p "Select directory:")
-
-# Exit if user cancels or no selection
-if [ -z "$selected_dir" ]; then
-  echo "No directory selected, exiting."
-  exit 1
-fi
+# Use dmenu to select a directory
+selected_dir=$(echo "$dir_list" | dmenu -i -p "Select directory:")
+[ -z "$selected_dir" ] && echo "No directory selected, exiting." && exit 1
 
 echo "Selected directory: $selected_dir"
-echo "cding into $selected_dir"
-cd "$selected_dir"
+cd "$selected_dir" || exit 1
 
-# Compile all .tex files in the selected directory
+# Start continuous compilation in background
 compiled=false
 for texfile in "$selected_dir"/*.tex; do
   if [ -f "$texfile" ]; then
-    echo "Compiling $texfile ..."
-    latexmk -pdf "$texfile"
+    echo "Starting latexmk -pvc for $texfile ..."
+    latexmk -pdf -pvc "$texfile" &
     compiled=true
   fi
 done
@@ -38,20 +33,29 @@ if ! $compiled; then
   exit 0
 fi
 
+# Notify user and start timer
+minutes=$((TIMEOUT / 60))
+seconds=$((TIMEOUT % 60))
+notify-send "LaTeX Compilation Started" "Watching .tex files for $minutes minutes $seconds seconds..."
+echo "Timer started for $minutes minutes $seconds seconds..."
+sleep "$TIMEOUT"
+
+# After timeout: kill compilation
+echo "Timer done. Stopping all latexmk -pvc processes..."
+pkill -f "latexmk -pdf -pvc"
+notify-send "LaTeX Compilation Finished" "Stopped after $minutes minutes $seconds seconds."
+
 # Clean auxiliary files
-echo "Cleaning auxiliary files with latexmk -c ..."
-latexmk -c -outdir="$selected_dir" "$selected_dir"/*.tex
+echo "Cleaning auxiliary files..."
+for texfile in "$selected_dir"/*.tex; do
+  [ -f "$texfile" ] && latexmk -c "$texfile"
+done
 
-# Define source and destination directories
-SOURCE_DIR="$HOME/Zettelkasten/"
-DEST_DIR="$HOME/Documents/pdfs/"
-
-# Create destination directory if it doesn't exist
+# Move PDFs
+SOURCE_DIR="$selected_dir"
+DEST_DIR="$HOME/Documents/pdfs"
 mkdir -p "$DEST_DIR"
+echo "Moving PDFs from $SOURCE_DIR to $DEST_DIR ..."
+find "$SOURCE_DIR" -maxdepth 1 -type f -iname "*.pdf" -exec mv "{}" "$DEST_DIR" \;
 
-# Find and move all PDFs from source and subdirectories
-find "$SOURCE_DIR" -type f -iname "*.pdf" -exec mv "{}" "$DEST_DIR" \;
-
-echo "All PDF files have been moved to $DEST_DIR"
-
-echo "Done."
+echo "All done. PDFs moved and temp files cleaned."

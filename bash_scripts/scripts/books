@@ -1,20 +1,21 @@
 #!/bin/bash
 
 DOCS_DIR="$HOME/Documents"
+ZK_DIR="$HOME/Zettelkasten"
 
-# Try to get PDFs sorted by access time
-pdf_files=$(find "$DOCS_DIR" -type f -iname "*.pdf" ! -path "*/.*" \
+# Try to get PDFs sorted by access time from both directories
+pdf_files=$(find "$DOCS_DIR" "$ZK_DIR" -type f -iname "*.pdf" ! -path "*/.*" \
   -exec stat --format='%X %n' {} + 2>/dev/null |
   sort -nr | cut -d' ' -f2-)
 
 # If access-time list is empty, fall back to plain list
 if [ -z "$pdf_files" ]; then
-  pdf_files=$(find "$DOCS_DIR" -type f -iname "*.pdf" ! -path "*/.*" | sort)
-  [ -z "$pdf_files" ] && notify-send "No PDF files found in $DOCS_DIR" && exit 1
+  pdf_files=$(find "$DOCS_DIR" "$ZK_DIR" -type f -iname "*.pdf" ! -path "*/.*" | sort)
+  [ -z "$pdf_files" ] && notify-send "No PDF files found in $DOCS_DIR or $ZK_DIR" && exit 1
 fi
 
 # Exit if no PDFs found
-[ -z "$pdf_files" ] && notify-send "No PDF files found in $DOCS_DIR" && exit 1
+[ -z "$pdf_files" ] && notify-send "No PDF files found in $DOCS_DIR or $ZK_DIR" && exit 1
 
 # Show list in dmenu
 selected=$(echo "$pdf_files" | dmenu -i -l 10 -p "Select PDF:")

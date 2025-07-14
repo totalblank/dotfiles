@@ -1,115 +1,48 @@
 [global]
-   
-    ### Display ###
-
-    # Display notifications on monitor with mouse focus
-    follow = mouse
-    # Set {width}x{height} and {x_pos}+{y_pos}
-    width = 300
-    offset = (5,5)
     origin = top-right
-    # Show number of hidden notifications
-    indicate_hidden = yes
-    # Shrink window if smaller than width
-    shrink = no
-    # Set transparency of notifications
-    transparency = 0
-    # Height of seperators
-    separator_height = 2
-    # Text and seperator padding
-    padding = 8
-    # Horizontal padding
-    horizontal_padding = 8
-    # Width of frame around window
-    frame_width = 1
-    # Color of frame around window
-    frame_color = "#4287f5"
-    # Sort messages by urgency
-    sort = yes
-    # Idle seconds
-    idle_threshold = 0
+    offset = (20, 40)
+    width = 300
+    height = (0, 300)
+    gap_size = 10
+    padding = 12
+    horizontal_padding = 20
+    frame_width = 2
+    frame_color = "#B68D40"
+    separator_height = 1
+    separator_color = auto
+    corner_radius = 6
 
-    ### Text ###
-    
-    # Set font of notifications
-    font = JetBrainMonoNerdFontMono 14
-    # Markup parsing
+    transparency = 10
+    font = JetBrains Mono 10
     markup = full
-    # Message format:
-    # %a - appname
-    # %s - summary
-    # %b - body
-    # %i - iconname (with path)
-    # %I - iconname (without path)
-    # %p - progress value (if set)
-    # %n - progress value no extra characters
-    # %% - literal %
-    format = "<b>%a</b>\n<i>%s</i>\n%b"
-    # Align message text horizontally
-    alignment = center
-    # Align message text vertically
-    vertical_alignment = center
-    # Show age of message if message is older than x seconds
-    show_age_threshold = -1
-    # Split notifications into multiple lines
-    word_wrap = no
-    # If message too long, add ellipsize to...
-    ellipsize = middle
-    # Ignore newlines in notifications
-    ignore_newline = no
-    # Stack duplicate notifications
-    stack_duplicates = true
-    # Hide number of duplicate notifications
-    hide_duplicate_count = true
-    # Show indicatiors  for urls and actions
-    show_indicators = no
-   
-    ### Icons ###
-    
-    # Disable icons
-    icon_position = off
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    icon_position = left
+    max_icon_size = 64
 
-    ### History ###
-    
-    # Length of history
-    history_length = 20
-    
-    ### Misc ###
-    
-    # Dmenu path
-    dmenu = /usr/bin/dmenu -p dunst:
-    # Browser
-    browser = /usr/bin/firefox -new-tab
-    # Always run scripts
-    always_run_script = true
-    # Title of notification
-    title = Dunst
-    # Notification class
-    class = Dunst
-    # Corner radius of dunst
-    corner_radius = 15
-    # Ignore dbus closeNotification message
-    ignore_dbusclose = false
+    timeout = 5
+    idle_threshold = 120
 
-    ### Mouse ###
+    dmenu = dmenu -p dunst:
+    follow = mouse
+    monitor = 0
 
-    # Left click
-    mouse_left_click = close_current
-    # Middle click
-    mouse_middle_click = do_action
-    # Right click
-    mouse_right_click = do_action
+    mouse_left_click = do_action
+    mouse_middle_click = close_all
+    mouse_right_click = close_current
+
+[urgency_low]
+    background = "#F4EBD0"
+    foreground = "#122620"
+    frame_color = "#D6AD60"
 
 [urgency_normal]
-
-    # Normal urgency notifications
-    background = "#202632"
-    foreground = "#ffffff"
-    timeout = 5
+    background = "#D6AD60"
+    foreground = "#122620"
+    frame_color = "#B68D40"
 
 [urgency_critical]
+    background = "#B68D40"
+    foreground = "#F4EBD0"
+    frame_color = "#122620"
 
-    # High urgency notifications
-    background = "#ffffff"
-    foreground = "#db0101"
-    timeout = 0
