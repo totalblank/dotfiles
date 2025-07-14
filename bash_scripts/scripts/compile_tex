@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configurable timer in seconds (e.g., 15 minutes = 900 seconds)
-TIMEOUT=15
+TIMEOUT=1800
 
 LOGFILE="$HOME/logs/compile_tex.log"
 exec > >(tee -a "$LOGFILE") 2>&1

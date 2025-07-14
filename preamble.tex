@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
-\usepackage{enumitem,amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{enumitem}
 \usepackage{pgfplots}
 \usepackage{tikz}
 \usepackage{hyperref}
@@ -50,3 +50,8 @@
     \numberlineendpoint{#4}{#6}
   \end{tikzpicture}%
 }
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,fill=white,draw,inner sep=1pt] (char) {#1};}}
+
+\usepackage{enumitem}
