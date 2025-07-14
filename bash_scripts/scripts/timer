@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Prompt for time
+input=$(dmenu -p "Set timer (e.g. 25m, 5m 30s, 90s):")
+[ -z "$input" ] && exit 0
+
+# Convert input to seconds using GNU date or shell math
+# Supports formats like "25m", "5m 30s", "90s"
+duration=$(echo "$input" | awk '
+{
+  total = 0
+  for (i = 1; i <= NF; i++) {
+    if ($i ~ /[0-9]+m/) total += int($i) * 60;
+    else if ($i ~ /[0-9]+s/) total += int($i);
+    else if ($i ~ /^[0-9]+$/) total += int($i);  # fallback
+  }
+  print total
+}')
+
+[ "$duration" -eq 0 ] && notify-send "Timer" "Invalid input." && exit 1
+
+# Path where slstatus reads from
+status_file="$HOME/.cache/slstatus_timer"
+touch "$status_file"
+
+# Countdown loop
+(
+  while [ "$duration" -gt 0 ]; do
+    mins=$((duration / 60))
+    secs=$((duration % 60))
+    printf "⏳ %02dm:%02ds\n" "$mins" "$secs" >"$status_file"
+    sleep 1
+    duration=$((duration - 1))
+  done
+  # After timer ends: show "⏰ Done" briefly
+  echo "⏰ Done" >"$status_file"
+  notify-send "⏰ Timer Finished" "Time's up!"
+  sleep 5
+
+  # Instead of deleting file, clear it with a space to avoid 'n/a'
+  echo " " >"$status_file"
+) &
+disown
