@@ -83,7 +83,7 @@ static const char add_bookmark[] =
     "echo $(xclip -o) >> $HOME/dotfiles/bookmarks";
 
 static const char runscripts[] =
-    "ls /home/srabon/dotfiles/bash_scripts/scripts | dmenu -i | bash > "
+    "ls /home/srabon/dotfiles/bash_scripts/dmenu_scripts | dmenu -i | bash > "
     "~/logs/runscripts.log";
 
 // Volume control

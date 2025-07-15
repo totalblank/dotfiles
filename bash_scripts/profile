@@ -1,1 +1,1 @@
-export PATH="~/dotfiles/bash_scripts/scripts:$PATH"
+export PATH="~/dotfiles/bash_scripts/dmenu_scripts:~/dotfiles/bash_scripts/scripts:$PATH"

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# For PipeWire (if using wpctl, uncomment below and comment above)
+volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%.0f", $2 * 100}')
+muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo "true" || echo "false")
+
+icon_muted="🔇"
+icon_low="🔈"
+icon_med="🔉"
+icon_high="🔊"
+
+if [ "$muted" = "true" ]; then
+  printf "%s Mute\n" "$icon_muted"
+elif [ "$volume" -lt 30 ]; then
+  printf "%s %s%%\n" "$icon_low" "$volume"
+elif [ "$volume" -lt 70 ]; then
+  printf "%s %s%%\n" "$icon_med" "$volume"
+else
+  printf "%s %s%%\n" "$icon_high" "$volume"
+fi

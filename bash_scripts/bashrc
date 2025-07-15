@@ -10,7 +10,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-export PATH="~/dotfiles/bash_scripts/scripts:~/.local/bin/:$PATH"
+export PATH="~/dotfiles/bash_scripts/dmenu_scripts/:~/dotfiles/bash_scripts/scripts/:~/.local/bin/:$PATH"
 
 set -o vi
 
