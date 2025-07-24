@@ -1,29 +1,39 @@
 #!/bin/bash
 
-# Prompt for time
+# === Step 1: Choose category ===
+categories="GRE\nData Science\nFiction Notes\nBreak"
+category=$(echo -e "$categories" | dmenu -i -p "Select category:")
+[ -z "$category" ] && exit 0
+
+if [ "$category" == "Custom" ]; then
+  category=$(dmenu -p "Enter custom category:")
+  [ -z "$category" ] && exit 0
+fi
+
+# === Step 2: Prompt for timer duration ===
 input=$(dmenu -p "Set timer (e.g. 25m, 5m 30s, 90s):")
 [ -z "$input" ] && exit 0
 
-# Convert input to seconds using GNU date or shell math
-# Supports formats like "25m", "5m 30s", "90s"
+# Convert to seconds
 duration=$(echo "$input" | awk '
 {
   total = 0
   for (i = 1; i <= NF; i++) {
     if ($i ~ /[0-9]+m/) total += int($i) * 60;
     else if ($i ~ /[0-9]+s/) total += int($i);
-    else if ($i ~ /^[0-9]+$/) total += int($i);  # fallback
+    else if ($i ~ /^[0-9]+$/) total += int($i);
   }
   print total
 }')
-
 [ "$duration" -eq 0 ] && notify-send "Timer" "Invalid input." && exit 1
 
-# Path where slstatus reads from
+# === Timer status file for slstatus ===
 status_file="$HOME/.cache/slstatus_timer"
 touch "$status_file"
 
-# Countdown loop
+formatted_time=$(printf "%02dm:%02ds" $((duration / 60)) $((duration % 60)))
+
+# === Countdown ===
 (
   while [ "$duration" -gt 0 ]; do
     mins=$((duration / 60))
@@ -32,12 +42,104 @@ touch "$status_file"
     sleep 1
     duration=$((duration - 1))
   done
-  # After timer ends: show "⏰ Done" briefly
-  echo "⏰ Done" >"$status_file"
-  notify-send "⏰ Timer Finished" "Time's up!"
-  sleep 5
 
-  # Instead of deleting file, clear it with a space to avoid 'n/a'
+  echo "⏰ Done" >"$status_file"
+  notify-send "⏰ Timer Finished" "$category: $formatted_time"
+  sleep 5
   echo " " >"$status_file"
+
+  # === Log ===
+  logfile="$HOME/timer_log.md"
+  month_hdr="# $(date +'%B %Y')" # e.g. "# July 2025"
+  today="## $(date +%Y-%m-%d)"   # e.g. "## 2025-07-14"
+  tmpfile=$(mktemp)
+  new_secs=$(($(echo "$input" | awk '
+  {
+    total = 0
+    for (i = 1; i <= NF; i++) {
+      if ($i ~ /[0-9]+m/) total += int($i) * 60;
+      else if ($i ~ /[0-9]+s/) total += int($i);
+      else if ($i ~ /^[0-9]+$/) total += int($i);
+    }
+    print total
+  }')))
+
+  # Create file if missing
+  touch "$logfile"
+
+  awk -v month_hdr="$month_hdr" -v date_hdr="$today" -v cat="$category" -v new_secs="$new_secs" '
+  BEGIN {
+    in_month = 0
+    in_day = 0
+    updated = 0
+    printed_month = 0
+    printed_day = 0
+  }
+  {
+    print_line = 1
+    if ($0 == month_hdr) {
+      in_month = 1
+      printed_month = 1
+      print
+      next
+    }
+
+    if (in_month && $0 == date_hdr) {
+      in_day = 1
+      printed_day = 1
+      print
+      next
+    }
+
+    if (in_day && $0 ~ ("- \\*\\*" cat "\\*\\*:")) {
+      match($0, /([0-9]+)h:([0-9]+)m/, m)
+      old_sec = m[1]*3600 + m[2]*60
+      total = old_sec + new_secs
+      hours = int(total / 3600)
+      mins = int((total % 3600) / 60)
+      printf "- **%s**: %dh:%02dm\n", cat, hours, mins
+      updated = 1
+      print_line = 0
+      next
+    }
+
+    if (in_day && $0 ~ /^## /) {
+      if (!updated) {
+        printf "- **%s**: %dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
+        updated = 1
+      }
+      in_day = 0
+    }
+
+    if (in_month && $0 ~ /^# / && $0 != month_hdr) {
+      if (!printed_day) {
+        print date_hdr
+        printf "- **%s**: %dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
+        printed_day = 1
+        updated = 1
+      } else if (!updated) {
+        printf "- **%s**: %dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
+        updated = 1
+      }
+      in_month = 0
+    }
+
+    if (print_line) print
+  }
+  END {
+    if (!printed_month) {
+      print ""
+      print month_hdr
+    }
+    if (!printed_day) {
+      print date_hdr
+    }
+    if (!updated) {
+      printf "- **%s**: %dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
+    }
+  }
+  ' "$logfile" >"$tmpfile"
+
+  mv "$tmpfile" "$logfile"
 ) &
 disown
