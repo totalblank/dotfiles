@@ -1,20 +1,15 @@
 #!/bin/bash
 
 # === Step 1: Choose category ===
-categories="GRE\nData Science\nFiction Notes\nBreak"
+categories="GRE\nData Science\nMusic\nFiction Notes"
 category=$(echo -e "$categories" | dmenu -i -p "Select category:")
 [ -z "$category" ] && exit 0
-
-if [ "$category" == "Custom" ]; then
-  category=$(dmenu -p "Enter custom category:")
-  [ -z "$category" ] && exit 0
-fi
 
 # === Step 2: Prompt for timer duration ===
 input=$(dmenu -p "Set timer (e.g. 1h 30m, 45m, 90s):")
 [ -z "$input" ] && exit 0
 
-# Parse input to total seconds
+# === Step 3: Parse input to total seconds
 duration=$(echo "$input" | awk '
 {
   total = 0
@@ -32,6 +27,9 @@ duration=$(echo "$input" | awk '
   print total
 }')
 [ "$duration" -eq 0 ] && notify-send "Timer" "Invalid input." && exit 1
+
+# Save original duration before countdown begins
+original_duration=$duration
 
 # === Timer status file for slstatus ===
 status_file="$HOME/.cache/slstatus_timer"
@@ -55,77 +53,66 @@ formatted_time=$(printf "%02dm:%02ds" $((duration / 60)) $((duration % 60)))
   echo " " >"$status_file"
 
   # === Log ===
-  logfile="$HOME/timer_log.md"
+  logfile="$HOME/dotfiles/timer_log.md"
   month_hdr="# $(date +'%B %Y')" # e.g. "# July 2025"
-  today="## $(date +%Y-%m-%d)"   # e.g. "## 2025-07-14"
   tmpfile=$(mktemp)
-  new_secs=$(($(echo "$input" | awk '
-  {
-    total = 0
-    for (i = 1; i <= NF; i++) {
-      if ($i ~ /[0-9]+m/) total += int($i) * 60;
-      else if ($i ~ /[0-9]+s/) total += int($i);
-      else if ($i ~ /^[0-9]+$/) total += int($i);
-    }
-    print total
-  }')))
+  new_secs=$original_duration
 
-  # Create file if missing
   touch "$logfile"
 
   awk -v month_hdr="$month_hdr" -v cat="$category" -v new_secs="$new_secs" '
-BEGIN {
-  in_month = 0
-  updated = 0
-  printed_month = 0
-}
-{
-  print_line = 1
-
-  # Detect month section
-  if ($0 == month_hdr) {
-    in_month = 1
-    printed_month = 1
-    print
-    next
+  BEGIN {
+    in_month = 0
+    updated = 0
+    printed_month = 0
   }
+  {
+    print_line = 1
 
-  # Inside month: update existing category line
-  if (in_month && $0 ~ ("^- \\*\\*" cat "\\*\\*:")) {
-    match($0, /([0-9]+)h:([0-9]+)m/, m)
-    old_h = m[1]; old_m = m[2]
-    total = old_h * 3600 + old_m * 60 + new_secs
-    new_h = int(total / 3600)
-    new_m = int((total % 3600) / 60)
-    printf "- **%s**: %02dh:%02dm\n", cat, new_h, new_m
-    updated = 1
-    print_line = 0
-    next
+    # Found the current month header
+    if ($0 == month_hdr) {
+      in_month = 1
+      printed_month = 1
+      print
+      next
+    }
+
+    # Inside the month section: match existing category
+    if (in_month && $0 ~ ("^- \\*\\*" cat "\\*\\*:")) {
+      if (match($0, /([0-9]+)h:([0-9]+)m/, m)) {
+        old_secs = m[1]*3600 + m[2]*60
+        total = old_secs + new_secs
+        new_h = int(total / 3600)
+        new_m = int((total % 3600) / 60)
+        printf "- **%s**: %02dh:%02dm\n", cat, new_h, new_m
+        updated = 1
+        print_line = 0
+        next
+      }
+    }
+
+    # If a new month starts and this isn’t ours, insert before leaving
+    if (in_month && $0 ~ /^# / && $0 != month_hdr) {
+      if (!updated) {
+        printf "- **%s**: %02dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
+        updated = 1
+      }
+      in_month = 0
+    }
+
+    if (print_line) print
   }
-
-  # If a new month starts and we haven’t written yet
-  if (in_month && $0 ~ /^# / && $0 != month_hdr) {
+  END {
+    if (!printed_month) {
+      print ""
+      print month_hdr
+    }
     if (!updated) {
       printf "- **%s**: %02dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
-      updated = 1
     }
-    in_month = 0
   }
-
-  if (print_line) print
-}
-END {
-  if (!printed_month) {
-    print ""
-    print month_hdr
-  }
-  if (!updated) {
-    printf "- **%s**: %02dh:%02dm\n", cat, int(new_secs / 3600), int((new_secs % 3600) / 60)
-  }
-}
-' "$logfile" >"$tmpfile"
+  ' "$logfile" >"$tmpfile"
 
   mv "$tmpfile" "$logfile"
-
 ) &
 disown
