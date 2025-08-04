@@ -5,4 +5,6 @@
 - **Music**: 00h:30m
 
 # August 2025
-- **GRE**: 02h:30m
+- **GRE**: 09h:30m
+- **Music**: 00h:45m
+- **Data Science**: 01h:15m
