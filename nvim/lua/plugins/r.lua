@@ -74,12 +74,6 @@ return {
       vim.keymap.set("n", "gzc", "<Plug>SlimeConfig", { remap = true, silent = false })
     end,
   },
-  { -- preview equations
-    "jbyuki/nabla.nvim",
-    keys = {
-      { "<leader>qm", ':lua require"nabla".toggle_virt()<cr>', desc = "toggle [m]ath equations" },
-    },
-  },
   { -- paste an image from the clipboard or drag-and-drop
     "HakonHarnes/img-clip.nvim",
     event = "BufEnter",
