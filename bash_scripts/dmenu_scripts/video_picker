@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VIDEO_BASE="$HOME/Videos"
-VIDEO_EXTENSIONS="mp4 mkv avi webm mov flv"
+VIDEO_EXTENSIONS="mp4 mkv avi webm mov flv ts"
 
 # Pick directory
 dir=$(find "$VIDEO_BASE" -mindepth 1 -maxdepth 5 -type d ! -name ".*" | sort | dmenu -i -l 20 -p "Choose a folder:")
