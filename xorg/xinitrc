@@ -3,7 +3,7 @@
 xbindkeys &
 picom &
 xrdb -merge ~/.Xresources
-feh --bg-scale ~/dotfiles/wallpaper/cyborg.jpg &
+feh --bg-scale ~/dotfiles/wallpaper/temple.png &
 dunst &
 slstatus &
 
