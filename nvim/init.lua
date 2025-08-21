@@ -44,6 +44,16 @@ vim.opt.undofile = true          -- persistent undo
 vim.call('plug#begin')
 	Plug('rebelot/kanagawa.nvim')
 	Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+    Plug('L3MON4D3/LuaSnip')
+
+    Plug('hrsh7th/nvim-cmp')
+    Plug('hrsh7th/cmp-nvim-lsp')
+    Plug('hrsh7th/cmp-buffer')
+    Plug('hrsh7th/cmp-path')
+    Plug('hrsh7th/cmp-cmdline')
+    Plug('neovim/nvim-lspconfig')
+    Plug('windwp/nvim-autopairs')
+
 vim.call('plug#end')
 
 --- Color Scheme ---
@@ -75,4 +85,8 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+--- R REPL ---
 require("rrepl")
+
+--- LSP ---
+require("lsp_config")
