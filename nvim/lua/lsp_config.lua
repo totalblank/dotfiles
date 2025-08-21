@@ -33,26 +33,64 @@ cmp.setup({
   }),
 })
 
+--- Mason
+require("mason").setup()
 
---- LaTeX ---
-
--- Backslash behaves as part of a word in TeX
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "tex", "plaintex", "latex" },
-  callback = function()
-    vim.opt_local.iskeyword:append("\\")
-  end,
+require("mason-lspconfig").setup({
+    ensure_installed = { "clangd", "lua_ls", "texlab", "r_language_server" }, -- auto-install these servers
+    automatic_installation = true,
 })
 
-lsp.texlab.setup({
-  capabilities = caps,
-  settings = {
-    texlab = {
-      auxDirectory      = "./build",
-      forwardSearch = { executable = "zathura", args = { "%p" } }, -- set your viewer
-      chktex = { onOpenAndSave = true },  -- linting
-      diagnosticsDelay = 300,
-    }
-  }
-})
+--- diagnostic
+-- Prefer this on Neovim 0.10+
+local has010 = vim.fn.has("nvim-0.10") == 1
+
+local icons = {
+  Error = "✘",
+  Warn  = "▲",
+  Hint  = "⚑",
+  Info  = "",
+}
+
+if has010 then
+  vim.diagnostic.config({
+    -- Put your general diagnostics prefs here
+    virtual_text = { prefix = "●", spacing = 2 },
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+
+    -- NEW: define signs without sign_define()
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = icons.Error .. " ",
+        [vim.diagnostic.severity.WARN]  = icons.Warn  .. " ",
+        [vim.diagnostic.severity.HINT]  = icons.Hint  .. " ",
+        [vim.diagnostic.severity.INFO]  = icons.Info  .. " ",
+      },
+      -- Optional: use theme’s highlight groups for number column/line
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+        [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+        [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+        [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+      },
+      -- linehl = { … } -- similarly, if you like line highlighting
+    },
+  })
+else
+  -- Fallback for Neovim < 0.10 (no warning on older versions)
+  for type, icon in pairs(icons) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon .. " ", texthl = hl, numhl = "" })
+  end
+  vim.diagnostic.config({
+    virtual_text = { prefix = "●", spacing = 2 },
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+    signs = true,
+  })
+end
+
 

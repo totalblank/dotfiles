@@ -54,10 +54,29 @@ vim.call('plug#begin')
     Plug('neovim/nvim-lspconfig')
     Plug('windwp/nvim-autopairs')
 
+    Plug("mason-org/mason.nvim")
+    Plug("mason-org/mason-lspconfig.nvim")
 vim.call('plug#end')
 
 --- Color Scheme ---
-vim.cmd('colorscheme kanagawa')
+
+-- Default options:
+require('kanagawa').setup({
+    compile = true,             -- enable compiling the colorscheme
+    undercurl = true,            -- enable undercurls
+    statementStyle = { bold = true, italic = false },
+    transparent = true,         -- do not set background color
+    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+    theme = "wave",              -- Load "wave" theme
+
+    commentStyle = { italic = false },
+    keywordStyle = { italic = false },
+    overrides = function() return { ["@variable.builtin"] = { italic = false }, } end,
+})
+
+-- setup must be called before loading
+vim.cmd("silent! colorscheme kanagawa")
 
 --- Treesitter ---
 require'nvim-treesitter.configs'.setup {
@@ -85,8 +104,13 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+--- Popup ---
+require("popup")
+
 --- R REPL ---
 require("rrepl")
 
 --- LSP ---
 require("lsp_config")
+
+
