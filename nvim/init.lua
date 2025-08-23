@@ -1,4 +1,5 @@
 local vim = vim
+local uname = vim.loop.os_uname()
 local Plug = vim.fn['plug#']
 
 --- General settings ---
@@ -108,7 +109,9 @@ require'nvim-treesitter.configs'.setup {
 require("popup")
 
 --- R REPL ---
-require("rrepl")
+if uname.sysname == "Linux" then
+    require("rrepl")
+end
 
 --- LSP ---
 require("lsp_config")
