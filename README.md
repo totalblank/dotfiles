@@ -1,4 +1,4 @@
-# My Arch Linux dotfiles.
+# My Arch Linux dotfile
 
 **NOTE**
 
