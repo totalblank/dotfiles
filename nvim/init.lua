@@ -81,7 +81,7 @@ vim.cmd("silent! colorscheme kanagawa")
 
 --- Treesitter ---
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "markdown", "markdown_inline", "latex", "r" },
+  ensure_installed = { "c", "cpp", "lua", "markdown", "markdown_inline", "latex", "r" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
