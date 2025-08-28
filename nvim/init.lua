@@ -41,6 +41,14 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true          -- persistent undo
 
+vim.filetype.add{
+    extension = {
+        tpp = "cpp",
+        ipp = "cpp",
+        tcc = "cpp",
+    },
+}
+
 
 vim.call('plug#begin')
 	Plug('rebelot/kanagawa.nvim')
