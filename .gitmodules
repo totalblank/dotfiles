@@ -7,3 +7,6 @@
 [submodule "suckless/dmenu"]
 	path = suckless/dmenu
 	url = https://git.suckless.org/dmenu
+[submodule "hobby/C++/notes/cpp_random"]
+	path = hobby/C++/notes/cpp_random
+	url = git@github.com:totalblank/CPP-Random.git
