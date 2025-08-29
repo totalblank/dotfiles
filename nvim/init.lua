@@ -53,7 +53,9 @@ vim.filetype.add{
 vim.call('plug#begin')
 	Plug('rebelot/kanagawa.nvim')
 	Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+
     Plug('L3MON4D3/LuaSnip')
+    Plug('rafamadriz/friendly-snippets')
 
     Plug('hrsh7th/nvim-cmp')
     Plug('hrsh7th/cmp-nvim-lsp')
@@ -65,6 +67,8 @@ vim.call('plug#begin')
 
     Plug("mason-org/mason.nvim")
     Plug("mason-org/mason-lspconfig.nvim")
+
+    Plug("HakonHarnes/img-clip.nvim")
 vim.call('plug#end')
 
 --- Color Scheme ---
@@ -124,4 +128,8 @@ end
 --- LSP ---
 require("lsp_config")
 
+--- Clipboard ---
+require("clipboard")
 
+--- Snippets ---
+require("snippets")

@@ -9,10 +9,14 @@ local luasnip = require("luasnip")
 pcall(require("luasnip.loaders.from_vscode").lazy_load)
 
 cmp.setup({
-  snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+  snippet = {
+      expand = function(args)
+          luasnip.lsp_expand(args.body)
+      end
+  },
   mapping = cmp.mapping.preset.insert({
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"]      = cmp.mapping.confirm({ select = false }),
+    ["<CR>"]      = cmp.mapping.confirm({ select = true }),
     ["<Tab>"]     = cmp.mapping(function(fb)
       if cmp.visible() then cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()
