@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === Step 1: Choose category ===
-categories="GRE\nIELTS\nData Science\nMusic\nFiction Notes"
+categories="GRE\nData Science\nProgramming\nMusic\nFiction Notes"
 category=$(echo -e "$categories" | dmenu -i -p "Select category:")
 [ -z "$category" ] && exit 0
 
