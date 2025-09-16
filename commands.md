@@ -33,6 +33,14 @@ It should be solved.
 
 If you want to execute something on login, put it in `.bash_profile`.
 
+## Screen on for the current session
+
+```Bash
+xset s off         # disable screen saver
+xset -dpms         # disable DPMS (Energy Star) features
+xset s noblank     # disable screen blanking
+```
+
 ## `suckless`
 
 All the changes that is made in `config.def.h`, must also be made in `config.h`.

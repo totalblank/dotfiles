@@ -2,7 +2,6 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 alias vim="nvim"
-alias emacs="emacs -nw"
 alias battery="upower -i $(upower -e | grep '/battery') | grep --color=never -E percentage|xargs|cut -d' ' -f2|sed s/%//"
 alias bookmark="$EDITOR ~/dotfiles/bookmarks"
 
@@ -12,9 +11,9 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="~/dotfiles/bash_scripts/dmenu_scripts/:~/dotfiles/bash_scripts/scripts/:~/.local/bin/:$PATH"
 
-set -o vi
+set -o vi # enable vim mode in terminal
 
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh # Z
 
 mtpdev() {
   # Get all connected MTP devices (mounted and unmounted)
