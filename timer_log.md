@@ -4,5 +4,5 @@
 
 # September 2025
 - **GRE**: 02h:00m
-- **Data Science**: 10h:05m
+- **Data Science**: 11h:20m
 - **Programming**: 04h:00m
