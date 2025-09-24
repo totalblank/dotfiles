@@ -2,24 +2,28 @@
 %!TEX root =cv-llt.tex
 
 \begin{rubric}{Research Summary}
-% \noentry{2014 -- 2015}
 \entry*[]
-    \textbf{\href{https://www.kaggle.com/code/aheersrabon/rsna-iad-doing-eda}{EDA on RSNA Intracranial Aneurysm Detection}}
-    \par Exploratory Data Analysis and animation of a subset of the dataset of RSNA Intracranial Aneurysm Detection dataset provided by Radiological Society of North America.
+    \textbf{Fraud Detection: A Graph Neural Network Approach} -- Lead
+    \par This thesis develops a heterogeneous Graph Neural Network for transaction-level fraud detection using the IEEE-CIS dataset. Transactions are modeled as nodes linked to categorical entities (cards, addresses, emails, devices, OS, browsers) and to other transactions sharing keys; features include z-scored/log amount and cyclic time embeddings. A HeteroSAGE architecture with per-type embeddings, neighbor-sampling mini-batches, edge-dropout and degree-capping learns transaction representations. Training uses temporal train/val/test splits, focal loss for label imbalance, and cosine LR scheduling. The approach emphasizes relational feature propagation and scalable mini-batch training for real-world fraud detection.
+    \vspace{0.25cm}
+    \par \emph{Tools}: PyTorch, PyTorch-Geometric, Polars.
+    \par \emph{Code}: \href{https://www.kaggle.com/code/aheersrabon/fraud-detection-ieee-cis}{\emph{\underline{Fraud Detection}}}
 \entry*[]
-    \textbf{\href{https://www.kaggle.com/code/aheersrabon/fraud-detection-ieee-cis}{Credit Card Fraud Detection using Graph Neural Network}}
-    \par Converted the transaction dataset into a Graph with nodes and edges and then used Graph Neural Network to classify fraudulent nodes.
+    \textbf{Pricing Competition (ongoing)} -- Co-author
+    \par We simulate price competition using a custom Gym `MarketEnv` (logit, Hotelling, linear demand) with two firms and many consumers. Shocks—episodic or persistent—alter demand. Agents include tabular Q-learning (1-step memory on a discrete price grid), continuous-policy deep RL (PPO, SAC, DDPG via Stable-Baselines3), and a CMA-ES optimizer treating prices as policy parameters. Rewards compute firm profits (cooperative average by default); evaluation runs multi-seed rollouts measuring avg profit, price dispersion, consumer surplus, convergence and shock-recovery. Results are aggregated with CIs and pairwise tests to compare learning algorithms and robustness across market specifications.
+    \vspace{0.25cm}
+    \par \emph{Tools}: \verb|stable_baseline3|, \verb|gymnasium|, \verb|cma|
+    \par \emph{Code}: \href{https://www.kaggle.com/code/aheersrabon/pricing-competiton-1}{\emph{\underline{Pricing Competition}}}
 \entry*[]
-    \textbf{\href{https://totalblank.github.io/Churn-Analysis/churn_analysis.html}{Customer Churn Analysis}}
-	\par Conducted a comprehensive churn analysis using EDA, survival (Kaplan–Meier) analysis, clustering, and feature engineering (CLV proxy, normalized spend). Performed statistical association tests and exploratory feature-importance (logistic regression, random forest), and turned findings into prioritized retention recommendations for high-risk short-tenure, month-to-month, high-charge (fiber-optic) cohorts.
-\entry*[]
-    \textbf{\href{https://drive.google.com/file/d/1jfiUezMUgbju4wYpCKPOwV52DmndSEff/view?usp=sharing}{Coal Transportation Optimization}}
-	\par Applied Operations Research to a transportation model optimizing India's coal shipping costs; demonstrating practical decision making.
-\entry*[]
-    \textbf{\href{https://www.kaggle.com/code/aheersrabon/dro-waterbird}{Distributionally Robust Optimization}}
-    \par Compared Empirical Risk Minimization, Global - DRO, and Variable per-sample DRO to minimize a simple Convolutional Neural Network (CNN)
-    on the WILDS Waterbird dataset.
-\entry*[]
-    \textbf{\href{https://srabon-s-portfolio.vercel.app/portfolio/projects/game_of_life}{Conway's Game of Life}}
-    \par A simple implementation of Conway's Game of Life with JavaScript.
+    \textbf{Simulating Inventory (ongoing)} -- Co-author
+	\par We develop a discrete-event SimPy simulation of a seven-node perishables supply network (source, two DCs, four retailers) modeling daily demand from empirical JSON series. Each facility tracks age-segmented inventory, EOQ/ROP updated periodically, and places consolidated orders to meet 70–75\% truckload thresholds. Perishability follows a Weibull deterioration (α,β) applied on-hand and in-transit, generating waste and expiries; FIFO age allocation and probabilistic substitution between close varieties mitigate stockouts. The model accumulates transportation and stockout costs and reports service levels, substitution rates, waste/expired totals, and replenishment statistics over configurable horizons to evaluate policy tradeoffs.
+    \vspace{0.25cm}
+    \par \emph{Tools}: \verb|SimPy|, \verb|NumPy|, \verb|pandas|
+    \par \emph{Code}: Available on request
+
+    \vspace{1cm}
+    \begin{center}
+        The full list (and links) of all the projects I've completed can be found on my portfolio page \href{https://srabon-s-portfolio.vercel.app/portfolio/projects}{\underline{here}}
+    \end{center}
 \end{rubric}
+
