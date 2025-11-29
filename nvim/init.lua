@@ -1,4 +1,5 @@
 local vim = vim
+vim.g.mapleader = "\\"
 local uname = vim.loop.os_uname()
 local Plug = vim.fn['plug#']
 
@@ -69,6 +70,8 @@ vim.call('plug#begin')
     Plug("mason-org/mason-lspconfig.nvim")
 
     Plug("HakonHarnes/img-clip.nvim")
+
+    Plug("jpalardy/vim-slime")
 vim.call('plug#end')
 
 --- Color Scheme ---
@@ -120,11 +123,6 @@ require'nvim-treesitter.configs'.setup {
 --- Popup ---
 require("popup")
 
---- R REPL ---
-if uname.sysname == "Linux" then
-    require("rrepl")
-end
-
 --- LSP ---
 require("lsp_config")
 
@@ -133,3 +131,6 @@ require("clipboard")
 
 --- Snippets ---
 require("snippets")
+
+--- Code Runner for Python and R ---
+require("slime")
