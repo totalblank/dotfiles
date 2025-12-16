@@ -1,4 +1,5 @@
 $pdf_previewer = 'start zathura';
+$bibtex_use = 2;  # Always run bibtex
 $pdf_mode = 4; # lualatex
 $lualatex = 'lualatex -interaction=nonstopmode -synctext=1 %O %S';
 $aux_dir = "build";

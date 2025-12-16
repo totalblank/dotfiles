@@ -88,7 +88,7 @@ mtpdev() {
   done
 }
 
-tmux() {
+dtmux() {
   if [ $# -eq 0 ]; then
     command tmux new-session -d -s main \; \
       rename-window 'Editor' \; \

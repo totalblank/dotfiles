@@ -41,7 +41,7 @@ cmp.setup({
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "texlab"}, -- auto-install these servers
+    ensure_installed = {"texlab"}, -- auto-install these servers
     automatic_installation = true,
 })
 
@@ -97,10 +97,9 @@ else
   })
 end
 
-lsp.clangd.setup{}
+vim.lsp.config('clangd', {})
 
--- R Language Server setup
-lsp.r_language_server.setup({
+vim.lsp.config('r_language_server', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
@@ -129,3 +128,6 @@ lsp.r_language_server.setup({
     end, opts)
   end
 })
+
+vim.lsp.config('lua_ls', {})
+vim.lsp.config('pyright', {})

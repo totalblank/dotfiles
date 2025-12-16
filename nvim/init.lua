@@ -1,5 +1,6 @@
 local vim = vim
 vim.g.mapleader = "\\"
+
 local uname = vim.loop.os_uname()
 local Plug = vim.fn['plug#']
 
@@ -72,6 +73,9 @@ vim.call('plug#begin')
     Plug("HakonHarnes/img-clip.nvim")
 
     Plug("jpalardy/vim-slime")
+
+    Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
+    Plug('ibhagwan/fzf-lua')
 vim.call('plug#end')
 
 --- Color Scheme ---
@@ -91,11 +95,23 @@ require('kanagawa').setup({
     overrides = function() return { ["@variable.builtin"] = { italic = false }, } end,
 })
 
--- setup must be called before loading
-vim.cmd("silent! colorscheme kanagawa")
+-- Detect if running in TTY (without GUI/truecolor support)
+if vim.fn.has('gui_running') == 0 and vim.o.termguicolors == false then
+  -- TTY-friendly colorschemes
+  -- vim.cmd('slient! colorscheme desert')
+  -- or other TTY-friendly options:
+  -- vim.cmd('colorscheme elflord')
+  -- vim.cmd('colorscheme slate')
+  -- vim.cmd('colorscheme industry')
+  vim.cmd('colorscheme evening')
+else
+  -- Your regular colorscheme for GUI/truecolor terminals
+  vim.cmd("silent! colorscheme kanagawa")
+end
+
 
 --- Treesitter ---
-require'nvim-treesitter.configs'.setup {
+require'nvim-treesitter'.setup {
   ensure_installed = { "c", "cpp", "lua", "markdown", "markdown_inline", "latex", "r" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -134,3 +150,6 @@ require("snippets")
 
 --- Code Runner for Python and R ---
 require("slime")
+
+--- fzf-lua ---
+require("fzf_config")
