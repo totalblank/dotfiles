@@ -129,5 +129,36 @@ vim.lsp.config('r_language_server', {
   end
 })
 
-vim.lsp.config('lua_ls', {})
-vim.lsp.config('pyright', {})
+vim.keymap.set("n", "<leader>r", function()
+  -- Save current file first
+  vim.cmd("write")
+
+  local file = vim.fn.expand("%:p") -- absolute path
+  if file == "" then
+    vim.notify("No file to run", vim.log.levels.WARN)
+    return
+  end
+
+  -- Open a bottom split terminal buffer
+  vim.cmd("botright split")
+  vim.cmd("resize 12")
+  vim.cmd("enew") -- ensure we have an empty buffer for the terminal
+
+  -- Run: uv run <file> (no shell, so it works on Windows + Linux)
+  vim.fn.termopen({ "uv", "run", file }, {
+    on_exit = function(_, code)
+      if code ~= 0 then
+        vim.schedule(function()
+          vim.notify("uv run exited with code " .. code, vim.log.levels.WARN)
+        end)
+      end
+    end,
+  })
+
+  vim.cmd("startinsert")
+end, { desc = "Run current file: uv run" })
+
+require("lspconfig").basedpyright.setup({
+  cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
+})
+
