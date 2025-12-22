@@ -140,8 +140,8 @@ vim.keymap.set("n", "<leader>r", function()
   end
 
   -- Open a bottom split terminal buffer
-  vim.cmd("botright split")
-  vim.cmd("resize 12")
+  vim.cmd("botright vsplit")
+  vim.cmd("resize 60")
   vim.cmd("enew") -- ensure we have an empty buffer for the terminal
 
   -- Run: uv run <file> (no shell, so it works on Windows + Linux)
@@ -158,7 +158,22 @@ vim.keymap.set("n", "<leader>r", function()
   vim.cmd("startinsert")
 end, { desc = "Run current file: uv run" })
 
-require("lspconfig").basedpyright.setup({
+vim.lsp.config.basedpyright = {
   cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
-})
+}
 
+vim.lsp.config.lua_ls = {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = { ".luarc.json", ".git", vim.uv.cwd() },
+  settings = {
+    Lua = {
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+vim.lsp.enable("basedpyright")
+vim.lsp.enable("lua_ls")
