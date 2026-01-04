@@ -139,12 +139,10 @@ vim.keymap.set("n", "<leader>r", function()
     return
   end
 
-  -- Open a bottom split terminal buffer
-  vim.cmd("botright split")
-  vim.cmd("resize 12")
+  -- vim.cmd("botright vsplit")
+  -- vim.cmd("resize 60")
   vim.cmd("enew") -- ensure we have an empty buffer for the terminal
 
-  -- Run: uv run <file> (no shell, so it works on Windows + Linux)
   vim.fn.termopen({ "uv", "run", file }, {
     on_exit = function(_, code)
       if code ~= 0 then
