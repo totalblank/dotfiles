@@ -1,5 +1,6 @@
 local lsp = require('lspconfig')
 local caps = require('cmp_nvim_lsp').default_capabilities()
+local runners = require("runners")
 
 vim.o.completeopt = "menu,menuone,noselect"
 
@@ -7,6 +8,8 @@ vim.o.completeopt = "menu,menuone,noselect"
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 pcall(require("luasnip.loaders.from_vscode").lazy_load)
+local win = vim.fn.has("win32") == 1
+
 
 cmp.setup({
   snippet = {
@@ -139,22 +142,25 @@ vim.keymap.set("n", "<leader>r", function()
     return
   end
 
+  local ft = vim.bo.filetype
+  local cmd = runners.command_for(file, ft)
+
   -- vim.cmd("botright vsplit")
   -- vim.cmd("resize 60")
   vim.cmd("enew") -- ensure we have an empty buffer for the terminal
 
-  vim.fn.termopen({ "uv", "run", file }, {
+  vim.fn.termopen(cmd, {
     on_exit = function(_, code)
       if code ~= 0 then
         vim.schedule(function()
-          vim.notify("uv run exited with code " .. code, vim.log.levels.WARN)
+          vim.notify("Command exited with code " .. code, vim.log.levels.WARN)
         end)
       end
     end,
   })
 
   vim.cmd("startinsert")
-end, { desc = "Run current file: uv run" })
+end, { desc = "Run current file" })
 
 vim.lsp.config.basedpyright = {
   cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
