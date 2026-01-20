@@ -46,7 +46,8 @@ function M.latexmk_pdf_cmd(file, opts)
   local pdf  = stem .. ".pdf"
 
   if M.is_windows() then
-    local sumatra = opts.sumatra_path or [[C:\Program Files\SumatraPDF\SumatraPDF.exe]]
+
+    local sumatra = opts.sumatra_path or [[C:\Users\Takiz\AppData\Local\SumatraPDF\SumatraPDF.exe]]
     local ps = ([[latexmk -pdf "%s";
 if ($LASTEXITCODE -eq 0) { & "%s" -reuse-instance "%s" }]]):format(file, sumatra, pdf)
 
