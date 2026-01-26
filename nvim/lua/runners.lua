@@ -48,13 +48,13 @@ function M.latexmk_pdf_cmd(file, opts)
   if M.is_windows() then
 
     local sumatra = opts.sumatra_path or [[C:\Users\Takiz\AppData\Local\SumatraPDF\SumatraPDF.exe]]
-    local ps = ([[latexmk -pdf "%s";
+    local ps = ([[latexmk -pdflatex=lualatex -pdf "%s";
 if ($LASTEXITCODE -eq 0) { & "%s" -reuse-instance "%s" }]]):format(file, sumatra, pdf)
 
     return { "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps }
   end
 
-  return { "sh", "-lc", ('latexmk -pdf "%s" && xdg-open "%s"'):format(file, pdf) }
+  return { "sh", "-lc", ('latexmk -pdflatex=lualatex -pdf "%s" && xdg-open "%s"'):format(file, pdf) }
 end
 
 function M.c_cmd(file)
@@ -91,8 +91,6 @@ function M.command_for(file, ft, opts)
     python = { "uv", "run", file },
     lua    = { "lua", file },
     sh     = win and { "powershell", "-NoProfile", "-File", file } or { "bash", file },
-    javascript = { "node", file },
-    typescript = { "ts-node", file },
 
     markdown = M.md_to_pdf_cmd(file, opts),
     tex      = M.latexmk_pdf_cmd(file, opts),
