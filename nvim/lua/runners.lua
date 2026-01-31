@@ -71,16 +71,22 @@ if ($LASTEXITCODE -eq 0) { & "%s" }]]):format(file, exe, exe)
 end
 
 function M.cpp_cmd(file)
+  local flags = '-std=c++17 -Wall -Wextra -Wpedantic -O2'
+
   if M.is_windows() then
     local stem = vim.fn.fnamemodify(file, ":r")
     local exe  = stem .. ".exe"
-    local ps = ([[g++ "%s" -O2 -o "%s";
-if ($LASTEXITCODE -eq 0) { & "%s" }]]):format(file, exe, exe)
+    local ps = ([[g++ "%s" %s -o "%s";
+if ($LASTEXITCODE -eq 0) { & "%s" }]]):format(file, flags, exe, exe)
     return { "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps }
   end
 
   local exe = "/tmp/nvim_run.out"
-  return { "sh", "-lc", ('g++ "%s" -O2 -o "%s" && "%s"'):format(file, exe, exe) }
+  return {
+    "sh",
+    "-lc",
+    ('g++ "%s" %s -o "%s" && "%s"'):format(file, flags, exe, exe)
+  }
 end
 
 function M.command_for(file, ft, opts)
