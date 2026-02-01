@@ -153,3 +153,17 @@ require("slime")
 
 --- fzf-lua ---
 require("fzf_config")
+
+-- Create a new autocommand group to prevent duplication
+vim.api.nvim_create_augroup("MarkdownTemplate", { clear = true })
+
+-- Add an autocommand to insert the template on creating a new markdown file
+vim.api.nvim_create_autocmd("BufNewFile", {
+  group = "MarkdownTemplate",
+  pattern = "*.md",
+  callback = function()
+    -- Replace the path with the correct location of your markdown template
+    local template_file = vim.fn.expand("./templates/md.md")
+    vim.cmd("0r " .. template_file)  -- Read the template at the first line
+  end,
+})
