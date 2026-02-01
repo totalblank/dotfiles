@@ -163,7 +163,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
   pattern = "*.md",
   callback = function()
     -- Replace the path with the correct location of your markdown template
-    local template_file = vim.fn.expand("./templates/md.md")
+    local template_file = vim.fn.expand("~/dotfiles/nvim/templates/md.md")
     vim.cmd("0r " .. template_file)  -- Read the template at the first line
   end,
 })
