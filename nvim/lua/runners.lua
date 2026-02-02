@@ -37,7 +37,7 @@ if ($LASTEXITCODE -eq 0) { & "%s" -reuse-instance "%s" }]]):format(file, pdf, su
     return { "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps }
   end
 
-  return { "sh", "-lc", ('pandoc "%s" -o "%s" && zathura "%s"'):format(file, pdf, pdf) }
+  return { "bash", "-lc", ('pandoc "%s" -o "%s" && zathura "%s"'):format(file, pdf, pdf) }
 end
 
 function M.latexmk_pdf_cmd(file, opts)
