@@ -54,7 +54,7 @@ if ($LASTEXITCODE -eq 0) { & "%s" -reuse-instance "%s" }]]):format(file, sumatra
     return { "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps }
   end
 
-  return { "sh", "-lc", ('latexmk -pdflatex=lualatex -pdf "%s" && xdg-open "%s"'):format(file, pdf) }
+  return { "sh", "-lc", ('latexmk -pdflatex=lualatex -pdf "%s" && zathura "%s"'):format(file, pdf) }
 end
 
 function M.c_cmd(file)
