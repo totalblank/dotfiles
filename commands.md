@@ -64,3 +64,11 @@ When microsoft messes with the grub installation,
    sudo grub-mkconfig -o /boot/grub/grub.cfg
    ```
 5. (Optional but recommended) nuke the windows installation.
+
+# Download YouTube Videos
+
+## Download a playlist
+
+```Bash
+yt-dlp -f "bv*[vcodec^=avc1]+ba[ext=m4a]/b[ext=mp4]" -S "vcodec:h264,res,acodec:m4a" --merge-output-format mp4 -o "%(playlist_index)03d - %(title)s.%(ext)s" 'https://www.youtube.com/playlist?list=PLoROMvodv4rMJqxxviPa4AmDClvcbHi6h'
+```
