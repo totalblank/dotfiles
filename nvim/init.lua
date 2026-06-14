@@ -167,3 +167,11 @@ vim.api.nvim_create_autocmd("BufNewFile", {
     vim.cmd("0r " .. template_file)  -- Read the template at the first line
   end,
 })
+
+-- Disable the broken native tree-sitter highlighter specifically for Lua files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lua",
+    callback = function()
+        pcall(vim.treesitter.stop)
+    end,
+})

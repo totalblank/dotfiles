@@ -72,3 +72,11 @@ When microsoft messes with the grub installation,
 ```Bash
 yt-dlp -f "bv*[vcodec^=avc1]+ba[ext=m4a]/b[ext=mp4]" -S "vcodec:h264,res,acodec:m4a" --merge-output-format mp4 -o "%(playlist_index)03d - %(title)s.%(ext)s" 'https://www.youtube.com/playlist?list=PLoROMvodv4rMJqxxviPa4AmDClvcbHi6h'
 ```
+
+# Neovim
+
+## Save startup error message to a file
+
+```Bash
+nvim --cmd "redir! > nvim_error.txt" your_file.lua +q
+```
