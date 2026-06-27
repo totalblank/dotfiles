@@ -106,3 +106,32 @@ dtmux() {
     command tmux "$@"
   fi
 }
+
+screen_record() {
+    local output_dir="$HOME/Videos/ScreenRecord"
+    mkdir -p "$output_dir"
+
+    # Get the current screen resolution from X11
+    local screen_size
+    screen_size=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}')
+
+    # Create a timestamp safe for filenames
+    local timestamp
+    timestamp=$(date +'%Y-%m-%d_%H-%M-%S')
+
+    # Define the output file
+    local output_file="$output_file/recorded_at-${timestamp}.mp4"
+
+    # Run ffmpeg with explicit, well-formatted arguments
+    ffmpeg \
+        -f x11grab \
+        -video_size "$screen_size" \
+        -i :0.0 \
+        -f alsa \
+        -i default \
+        -c:v libx264 \
+        -preset ultrafast \
+        -c:a aac \
+        -b:a 128k \
+        "$output_file"
+}
