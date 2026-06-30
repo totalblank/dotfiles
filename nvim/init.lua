@@ -1,7 +1,7 @@
 local vim = vim
 vim.g.mapleader = "\\"
+vim.g.tex_flavor = "latex"
 
-local uname = vim.loop.os_uname()
 local Plug = vim.fn['plug#']
 
 --- General settings ---
@@ -98,12 +98,12 @@ require('kanagawa').setup({
 -- Detect if running in TTY (without GUI/truecolor support)
 if vim.fn.has('gui_running') == 0 and vim.o.termguicolors == false then
   -- TTY-friendly colorschemes
-  -- vim.cmd('slient! colorscheme desert')
+  vim.cmd('slient! colorscheme desert')
   -- or other TTY-friendly options:
   -- vim.cmd('colorscheme elflord')
   -- vim.cmd('colorscheme slate')
   -- vim.cmd('colorscheme industry')
-  vim.cmd('colorscheme evening')
+  -- vim.cmd('colorscheme evening')
 else
   -- Your regular colorscheme for GUI/truecolor terminals
   vim.cmd("silent! colorscheme kanagawa")
@@ -112,7 +112,7 @@ end
 
 --- Treesitter ---
 require'nvim-treesitter'.setup {
-  ensure_installed = { "c", "cpp", "lua", "markdown", "markdown_inline", "latex", "r" },
+  ensure_installed = { "c", "cpp", "lua", "markdown", "markdown_inline", "latex", "r", "python" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -124,7 +124,7 @@ require'nvim-treesitter'.setup {
   highlight = {
     enable = true,
 
-    disable = function(lang, buf)
+    disable = function(_, buf)
         local max_filesize = 100 * 1024 -- 100 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
@@ -168,10 +168,37 @@ vim.api.nvim_create_autocmd("BufNewFile", {
   end,
 })
 
--- Disable the broken native tree-sitter highlighter specifically for Lua files
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "lua",
-    callback = function()
-        pcall(vim.treesitter.stop)
-    end,
+-- Helper function to read the template file and insert it into the current buffer
+local function load_latex_template(filename)
+  local template_path = vim.fn.stdpath("config") .. "/templates/" .. filename
+  if vim.fn.filereadable(template_path) == 1 then
+    local lines = vim.fn.readfile(template_path)
+    -- Replace the contents of the current empty buffer with the template lines
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+  else
+    vim.notify("Template not found: " .. template_path, vim.log.levels.WARN)
+  end
+end
+
+-- Define the autocommand for new TeX files
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = "*.tex",
+  callback = function()
+      local options = {
+          "Casual Template",
+          "Academic Journal Template",
+          "Empty File",
+    }
+
+    -- Open a selection menu
+    vim.ui.select(options, {
+      prompt = "Select a LaTeX template:",
+    }, function(choice)
+      if choice == "Casual Template" then
+        load_latex_template("casual.tex")
+      elseif choice == "Academic Journal Template" then
+        load_latex_template("academic.tex")
+      end
+    end)
+  end,
 })
